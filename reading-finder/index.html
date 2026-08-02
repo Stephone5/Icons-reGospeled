@@ -367,7 +367,9 @@
   ];
   var B=[];
   var B=[];
+  var B=[];
   var AFF="";
+  var BUYISBN={"Pure Grace":"9780768413397","The Return of the Prodigal Son":"9780385473071","He Loves Me":"9780964729254","Prone to Love":"9780768442496","Leaving and Finding Jesus":"9798361824892","Misunderstood God":"9781935170051","The Birthright":"9781951701277","Being Seen":"9798385279524","Tablet to Table":"9781641582452","Sinners in the Hands of a Loving God":"9781601429513","Her Gates Will Never Be Shut":"9781606088821","A More Christlike God":"9781889973166","Raising Hell":"9780984357819","Judas Iscariot: Revisited and Restored":"9781606478097","Grace Saves All":"9781532650888","The Evangelical Universalist":"9781498215534","The Inescapable Love of God":"9781498222419","That All Shall Be Saved":"9780300258486","Once Loved, Always Loved":"9781666756210","Dare We Hope That All Men Be Saved?":"9781586179427","Between Noon and Three":"9780802842220","Unspoken Sermons":"9781781393666","Christ Triumphant":"9781014482259","A Larger Hope? Vol. 1":"9781610978842","The Christian Doctrine of Apokatastasis":"9789004245099","On the Incarnation":"9781387974924","On the Soul and the Resurrection":"9781034063698","Delighting in the Trinity":"9780830839834","The Trinitarian Faith":"9780567665584","Jesus and the Undoing of Adam":"9780964546554","The Mediation of Christ":"9781960761293","The Crucifixion":"9780802875341","God's Many-Splendored Image":"9780801034718","The Bride of the Lamb":"9780802839152","Being God's Image":"9781514000205","Relational Spirituality":"9781514011218","The Reciprocating Self":"9780830851430","The Human Odyssey":"9780486831800","The Beautiful Risk":"9781597525862","The Master and His Emissary":"9780300245929","New Seeds of Contemplation":"9780811217248","So Beautiful":"9798200502240","Jesus Through Middle Eastern Eyes":"9780830825684","The Gospel in a Pluralist Society":"9780802804266","The Drama of Scripture":"9781540966018"};
   var KIT="https://app.kit.com/forms/9754678/subscriptions";
   function subscribe(em){try{fetch(KIT,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"email_address="+encodeURIComponent(em)}).catch(function(){});}catch(e){}}
 
@@ -387,6 +389,7 @@
   function isAmazon(b){return b.amazon || (b.store && /amazon/i.test(b.store));}
   function store(b){return isAmazon(b)?"Amazon":"Bookshop";}
   function link(b){ if(b.buy) return b.buy;
+    if(BUYISBN[b.t]) return "https://bookshop.org/book/"+BUYISBN[b.t];
     return isAmazon(b) ? "https://www.amazon.com/s?k="+enc(b.t)
       : "https://bookshop.org/search?keywords="+enc(b.t)+(AFF?"&aff="+AFF:""); }
   function coverSrc(b){
