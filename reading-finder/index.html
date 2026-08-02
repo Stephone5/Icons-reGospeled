@@ -197,7 +197,7 @@
               <button class="btn" id="reveal" disabled>Reveal my books</button>
             </div>
             <div class="err" id="err" role="alert"></div>
-            <p class="note">Prototype — the email box isn't wired to storage yet; this is where MailerLite connects.</p>
+            <p class="note">Your email is added to the Icons reGospeled reading list — unsubscribe anytime.</p>
           </div>
           <div class="nav"><button class="back" data-back>&larr; Back</button><span></span></div>
         </div>
@@ -366,7 +366,10 @@
     d:"The whole Bible as a single unfolding story you are invited into.",w:"hands you the plot of the whole Bible."}
   ];
   var B=[];
+  var B=[];
   var AFF="";
+  var KIT="https://app.kit.com/forms/9754678/subscriptions";
+  function subscribe(em){try{fetch(KIT,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"email_address="+encodeURIComponent(em)}).catch(function(){});}catch(e){}}
 
   var CATTONE={Grace:"#4A4038",Restoration:"#39342C",Fathers:"#454049",Healing:"#3E4A45",Contemplation:"#3B4353",Formation:"#4A4636"};
   var LEAD={worn:"For a faith that's left you worn out, this ",hell:"For the hell-and-restoration question, this ",church:"For the ancient church's vision, this ",healing:"For whole-person healing, this ",beauty:"For beauty and contemplation, this "};
@@ -438,6 +441,7 @@
     err.textContent="";var v=email.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){err.textContent="Please enter a valid email so we can send your picks.";return;}
     if(!B.length){err.textContent="One moment — still loading the library…";return;}
+    subscribe(v);
     var top=B.map(function(b,i){return{b:b,s:score(b),i:i};}).sort(function(x,y){return y.s-x.s||x.i-y.i;}).slice(0,2).map(function(r){return r.b;});
     document.getElementById('summary').innerHTML='For someone <b>'+LEVEL[ans.level]+'</b>, drawn to <b>'+TOPIC[ans.topic]+'</b>, who learns best through <b>'+VOICE[ans.voice]+'</b> —';
     var picks=document.getElementById('picks');picks.innerHTML="";
