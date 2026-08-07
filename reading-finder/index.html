@@ -135,7 +135,56 @@
   .foot a{color:var(--gold-ink);}
 
   @media (prefers-reduced-motion:reduce){.track,.stepper,.pick,.opt,.btn,.buy,.book,.dot,.chip{transition:none;}}
+
+  /* --- site nav (matches the rest of iconsrg.org; finder-safe class names) --- */
+  .rf-hdr{position:sticky;top:0;z-index:60;background:rgba(236,238,242,.86);
+    backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line);font-family:var(--sans);}
+  .rf-hdr-in{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;
+    justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .rf-brand{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);text-decoration:none;
+    display:inline-flex;align-items:center;gap:9px;}
+  .rf-brand .mk{color:var(--gold-fill);}
+  .rf-menu{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .rf-menu a{color:var(--ink);text-decoration:none;font-size:15px;font-weight:600;}
+  .rf-menu a:hover{color:var(--gold-ink);}
+  .rf-menu a[aria-current]{color:var(--gold-ink);}
+  .rf-menu a.rf-give{background:var(--gold-fill);color:var(--on-gold);padding:9px 18px;border-radius:999px;}
+  .rf-menu a.rf-give:hover{color:var(--on-gold);}
+  @media(max-width:560px){.rf-hdr-in{justify-content:center;text-align:center;}.rf-menu{gap:14px;justify-content:center;}}
+
+  /* --- library search + title suggestions --- */
+  .divider{scroll-margin-top:84px;}
+  .lib-search{position:relative;max-width:520px;margin:0 auto 22px;}
+  .lib-search input{width:100%;font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--raise);
+    border:1px solid var(--line-2);border-radius:100px;padding:13px 20px 13px 44px;box-shadow:var(--shadow-sm);}
+  .lib-search input:focus-visible{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold);}
+  .lib-search .mag{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);
+    font-size:16px;pointer-events:none;}
+  .sugg{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:45;
+    background:var(--raise);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 18px 44px -20px rgba(60,66,80,.5);max-height:320px;overflow:auto;display:none;}
+  .sugg.open{display:block;}
+  .sugg li{padding:10px 12px;border-radius:9px;cursor:pointer;display:flex;flex-direction:column;gap:1px;}
+  .sugg li:hover,.sugg li.hi{background:var(--card);}
+  .sugg li .st{font-size:14.5px;color:var(--ink);font-weight:600;}
+  .sugg li .sa{font-size:12.5px;color:var(--muted);}
+  .sugg .none{color:var(--muted);font-size:13.5px;padding:10px 12px;cursor:default;}
 </style>
+
+<header class="rf-hdr">
+  <div class="rf-hdr-in">
+    <a class="rf-brand" href="../"><span class="mk">✝</span> Icons reGospeled</a>
+    <nav class="rf-menu" aria-label="Primary">
+      <a href="../about/">About</a>
+      <a href="../community/">Community</a>
+      <a href="./" aria-current="page">Book Finder</a>
+      <a href="../podcast/">Listen</a>
+      <a href="../course/">Course</a>
+      <a class="rf-give" href="../give/">Give</a>
+    </nav>
+  </div>
+</header>
 
 <div class="rf">
 <h2 class="sr-only">Icons reGospeled Book Finder: answer three questions to receive two book recommendations, then browse the full library.</h2>
@@ -216,7 +265,13 @@
 
 <div class="wrap-wide">
   <div class="divider"><span>The full library</span></div>
-  <p class="lib-intro">Every title is part of the reGospeled reading path — 60+ books across six phases, from first steps out of fear toward the widest hope. Filter by what you're after.</p>
+  <p class="lib-intro">Every title is part of the reGospeled reading path — 60+ books across six phases, from first steps out of fear toward the widest hope. Search a title or author, or filter by what you're after.</p>
+  <div class="lib-search">
+    <span class="mag" aria-hidden="true">⌕</span>
+    <input id="q" type="search" placeholder="Search by title or author…" autocomplete="off"
+      role="combobox" aria-expanded="false" aria-controls="sugg" aria-autocomplete="list" aria-label="Search the library">
+    <ul class="sugg" id="sugg" role="listbox" aria-label="Suggested titles"></ul>
+  </div>
   <div class="filters" id="filters"></div>
   <div class="grid" id="grid"></div>
   <p class="foot">
@@ -318,9 +373,39 @@
   });
   document.getElementById('browse').addEventListener('click',function(){document.querySelector('.divider').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});});
 
-  var grid=document.getElementById('grid'),filters=document.getElementById('filters'),curCat="All";
-  function buildChips(){var cats=["All"].concat(Array.from(new Set(B.map(function(b){return b.c;}).filter(Boolean))));filters.innerHTML="";cats.forEach(function(cat,i){var c=document.createElement('button');c.className='chip'+(i===0?' on':'');c.textContent=cat;c.addEventListener('click',function(){filters.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');curCat=cat;render();});filters.appendChild(c);});}
-  function render(){grid.innerHTML="";B.filter(function(b){return curCat==="All"||b.c===curCat;}).forEach(function(b){var el=document.createElement('article');el.className='book';el.innerHTML=coverHTML(b,'cv')+'<h4>'+b.t+'</h4><p class="a">'+b.a+'</p><p class="d">'+b.d+'</p><span class="tag">'+b.c+'</span><a class="co" href="'+link(b)+'" target="_blank" rel="noopener">Find it on '+store(b)+' →</a>';grid.appendChild(el);});}
+  var grid=document.getElementById('grid'),filters=document.getElementById('filters'),curCat="All",curQuery="";
+  function buildChips(){var cats=["All"].concat(Array.from(new Set(B.map(function(b){return b.c;}).filter(Boolean))));filters.innerHTML="";cats.forEach(function(cat,i){var c=document.createElement('button');c.className='chip'+(i===0?' on':'');c.textContent=cat;c.addEventListener('click',function(){filters.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');curCat=cat;curQuery="";if(q){q.value="";}closeSugg();render();});filters.appendChild(c);});}
+  function matchesQ(b){var s=((b.t||'')+' '+(b.a||'')).toLowerCase();return s.indexOf(curQuery)>-1;}
+  function render(){grid.innerHTML="";var list=B.filter(function(b){return (curQuery?matchesQ(b):(curCat==="All"||b.c===curCat));});if(!list.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">No titles match your search — try another word, or clear it to see everything.</p>';return;}list.forEach(function(b){var el=document.createElement('article');el.className='book';el.innerHTML=coverHTML(b,'cv')+'<h4>'+b.t+'</h4><p class="a">'+b.a+'</p><p class="d">'+b.d+'</p><span class="tag">'+b.c+'</span><a class="co" href="'+link(b)+'" target="_blank" rel="noopener">Find it on '+store(b)+' →</a>';grid.appendChild(el);});}
+
+  // --- library search + title suggestions ---
+  var q=document.getElementById('q'),sugg=document.getElementById('sugg'),hi=-1;
+  function esch(s){return (s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function closeSugg(){sugg.classList.remove('open');sugg.innerHTML="";hi=-1;if(q)q.setAttribute('aria-expanded','false');}
+  function choose(b){q.value=b.t;curQuery=b.t.toLowerCase();closeSugg();render();document.querySelector('.divider').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});}
+  function buildSugg(){
+    if(!q)return;var v=q.value.trim().toLowerCase();
+    if(!v){closeSugg();return;}
+    var m=B.filter(function(b){return ((b.t||'')+' '+(b.a||'')).toLowerCase().indexOf(v)>-1;}).slice(0,8);
+    sugg.innerHTML="";hi=-1;
+    if(!m.length){var n=document.createElement('li');n.className='none';n.textContent='No matching titles';sugg.appendChild(n);sugg.classList.add('open');q.setAttribute('aria-expanded','true');return;}
+    m.forEach(function(b){var li=document.createElement('li');li.setAttribute('role','option');li.innerHTML='<span class="st">'+esch(b.t)+'</span><span class="sa">'+esch(b.a)+'</span>';li.addEventListener('mousedown',function(e){e.preventDefault();choose(b);});sugg.appendChild(li);});
+    sugg.classList.add('open');q.setAttribute('aria-expanded','true');
+  }
+  if(q){
+    q.addEventListener('input',function(){curQuery=q.value.trim().toLowerCase();render();buildSugg();});
+    q.addEventListener('focus',function(){if(q.value.trim())buildSugg();});
+    q.addEventListener('keydown',function(e){
+      var items=sugg.querySelectorAll('li[role=option]');
+      if(e.key==='ArrowDown'&&items.length){e.preventDefault();hi=(hi+1)%items.length;}
+      else if(e.key==='ArrowUp'&&items.length){e.preventDefault();hi=(hi-1+items.length)%items.length;}
+      else if(e.key==='Enter'){if(hi>-1&&items[hi]){e.preventDefault();items[hi].dispatchEvent(new MouseEvent('mousedown'));}else{closeSugg();}return;}
+      else if(e.key==='Escape'){closeSugg();return;}
+      else return;
+      items.forEach(function(x){x.classList.remove('hi');});if(items[hi]){items[hi].classList.add('hi');items[hi].scrollIntoView({block:'nearest'});}
+    });
+    document.addEventListener('click',function(e){if(!e.target.closest('.lib-search'))closeSugg();});
+  }
 
   function afterData(){ if(!B.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">Could not load the library — please refresh.</p>';return;} buildChips(); render(); }
   fetch(CSV_URL).then(function(r){return r.text();}).then(function(txt){B=parseBooks(txt);afterData();}).catch(function(){B=[];afterData();});
