@@ -1,25 +1,44 @@
 # Icons reGospeled — website
 
-The web home for Icons reGospeled. This repo is the **start of the full IrG site**; more pages will be added over time.
+The web home for Icons reGospeled — a StoryBrand-structured static site on GitHub Pages, one cohesive brand with the Book Finder.
 
 ## Structure
 
-- `index.html` — homepage (currently a simple hub; will grow into the full site).
-- `reading-finder/` — the **Book Finder**: a 3-question tool that recommends books from the reGospeled reading path and links out to Bookshop/Amazon. Self-contained single file (fonts + book covers embedded).
+- `index.html` — homepage (full StoryBrand homepage).
+- `about/` — About: the What & Why (theological vision, mission).
+- `community/` — Wings/Whiskey/Word, Movies for Humans, retreats, "Restoring the Icon" gift, PRC support.
+- `podcast/` — *Less Heresy Than Expected* + *Strengthened by Grace* Substack.
+- `course/` — *The Gospel You Were Never Told* ($20 Kajabi course).
+- `give/` — Givebutter giving + meal fee.
+- `shop/` — Printful merch.
+- `contact/` — email, phone, socials.
+- `reading-finder/` — the **Book Finder** (self-contained, sheet-driven; do not rebuild).
+- `assets/site.css` — shared design system (tokens match the Book Finder).
+- `assets/signup.js` — email signup → Kit (ConvertKit) form 9754678 (same list the finder uses).
+
+Links between pages are **relative** so the site works both at the project-pages base path (`/Icons-reGospeled/`) and later at a custom apex domain.
+
+## Design system
+
+Palette: ground `#ECEEF2`, ink `#39342C`, muted `#867F73`, gold link `#8A6413`, gold-fill `#C69430`, card `#F6F8FB`. Fonts: Playfair Display (headings) + Epilogue (body), loaded via Google Fonts.
 
 ## Live URLs (GitHub Pages)
-
-Once Pages is enabled (Settings → Pages → Source: `main` / root):
 
 - Homepage: `https://stephone5.github.io/Icons-reGospeled/`
 - Book Finder: `https://stephone5.github.io/Icons-reGospeled/reading-finder/`
 
-A custom domain (e.g. `iconsrg.org`) can be added later in Settings → Pages.
+A custom domain can be added later in Settings → Pages.
 
-## Updating the Book Finder
+## Local preview
 
-For now the finder is a flat file. Two upgrades are planned:
-1. Point it at the Google Sheet book database so edits go live without touching code.
-2. Wire the email box to MailerLite.
+```
+python -m http.server 8848
+```
+Then open `http://localhost:8848/`.
 
-To edit a book by hand today: open `reading-finder/index.html` and edit the `B=[...]` list, then commit.
+## Wiring still to do
+
+- **Course link:** all "Enroll" buttons point to `linktr.ee/iconsrg`. Swap in the direct Kajabi course URL when handy (`course/index.html`, two links).
+- **Podcast:** the Listen page links out to YouTube via a poster card. Optional upgrade: embed a specific playlist/video ID for an inline player.
+- **Kit welcome sequence:** Kit's free plan does not auto-send welcome sequences. Decide: upgrade Kit (~$33/mo) or move to MailerLite/Brevo. Signups currently POST to the Kit form regardless.
+- **Custom domain:** point the owned domain at GitHub Pages when ready.
