@@ -438,6 +438,6 @@
 <script>
 (function(){var b=document.querySelector('.rf-toggle'),n=document.getElementById('rf-menu');if(b&&n){b.addEventListener('click',function(){var o=document.body.classList.toggle('rf-nav-open');b.setAttribute('aria-expanded',o?'true':'false');});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('rf-nav-open');b.setAttribute('aria-expanded','false');});});}})();
 </script>
-<script>document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href')||'';if(h.charAt(0)==='#'||h.indexOf('mailto:')===0||h.indexOf('tel:')===0)return;a.target='_blank';a.rel='noopener';});</script>
+<script>document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href')||'';if(h.charAt(0)==='#'||h.indexOf('mailto:')===0||h.indexOf('tel:')===0)return;if(a.hostname&&a.hostname!==location.hostname){a.target='_blank';a.rel='noopener';}});</script>
 </body>
 </html>
