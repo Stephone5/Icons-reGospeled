@@ -195,11 +195,12 @@ const {
       });
     });
 
-    // Open only EXTERNAL links in a new tab; internal links stay same-tab.
+    // Open only EXTERNAL links in a new tab; force internal links to same-tab.
     document.querySelectorAll('a[href]').forEach((a) => {
       const h = a.getAttribute('href') || '';
       if (h.startsWith('#') || h.startsWith('mailto:') || h.startsWith('tel:')) return;
       if (a.hostname && a.hostname !== location.hostname) { a.target = '_blank'; a.rel = 'noopener'; }
+      else { a.removeAttribute('target'); }
     });
   </script>
 </body>
