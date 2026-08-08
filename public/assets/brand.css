@@ -23,10 +23,8 @@
   background:radial-gradient(circle,rgba(198,148,48,.40),transparent 68%);animation:drift1 10s ease-in-out infinite;}
 .aurora .c2{width:44vw;height:48vw;right:0;top:8vw;
   background:radial-gradient(circle,rgba(201,139,122,.34),transparent 68%);animation:drift2 12s ease-in-out infinite;}
-.aurora .c3{width:52vw;height:46vw;left:6vw;bottom:-8vw;
+.aurora .c3{width:52vw;height:46vw;left:26vw;bottom:-10vw;
   background:radial-gradient(circle,rgba(140,164,196,.32),transparent 68%);animation:drift3 14s ease-in-out infinite;}
-.aurora .c4{width:36vw;height:40vw;right:8vw;bottom:6vw;
-  background:radial-gradient(circle,rgba(198,148,48,.30),transparent 68%);animation:drift4 11s ease-in-out infinite;}
 @keyframes drift1{
   0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
   33%{transform:translate(18vw,14vw) rotate(50deg) scale(1.2,.82);border-radius:66% 34% 40% 60% / 55% 62% 38% 45%;}
@@ -42,14 +40,9 @@
   33%{transform:translate(16vw,-12vw) rotate(70deg) scale(1.24,.86);border-radius:64% 36% 42% 58% / 58% 44% 56% 42%;}
   66%{transform:translate(24vw,-6vw) rotate(150deg) scale(.88,1.22);border-radius:40% 60% 58% 42% / 44% 58% 42% 56%;}
   100%{transform:translate(0,0) rotate(360deg) scale(1,1);border-radius:50% 50% 55% 45% / 48% 52% 48% 52%;}}
-@keyframes drift4{
-  0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:55% 45% 40% 60% / 52% 48% 52% 48%;}
-  33%{transform:translate(-14vw,-10vw) rotate(-50deg) scale(.86,1.22);border-radius:40% 60% 62% 38% / 60% 45% 55% 40%;}
-  66%{transform:translate(-22vw,-18vw) rotate(-130deg) scale(1.22,.9);border-radius:62% 38% 45% 55% / 42% 60% 40% 58%;}
-  100%{transform:translate(0,0) rotate(-360deg) scale(1,1);border-radius:55% 45% 40% 60% / 52% 48% 52% 48%;}}
 @media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
 /* mobile: small viewports need bigger blobs + less blur, or the clouds vanish */
 @media(max-width:640px){
   .aurora{filter:blur(46px) saturate(125%);inset:-25%;}
-  .aurora .c1,.aurora .c2,.aurora .c3,.aurora .c4{width:96vw;height:96vw;}
+  .aurora .c1,.aurora .c2,.aurora .c3{width:96vw;height:96vw;}
 }
