@@ -89,6 +89,26 @@ const {
             scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 } }
         );
       });
+
+      // Pinned scrollytelling for the Four Steps (desktop only): the section
+      // locks while each step lights up in turn. Falls back to the normal
+      // list on smaller screens.
+      const plan = document.querySelector('#plan');
+      const steps = plan ? gsap.utils.toArray('#plan .path li') : [];
+      if (plan && steps.length && matchMedia('(min-width:900px)').matches) {
+        gsap.set(steps, { opacity: 0.28, y: 12 });
+        gsap.set(steps[0], { opacity: 1, y: 0 });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: plan, start: 'top top',
+            end: '+=' + steps.length * 55 + '%',
+            pin: true, scrub: 0.6, anticipatePin: 1,
+          },
+        });
+        steps.forEach((s, i) => {
+          if (i > 0) tl.to(s, { opacity: 1, y: 0, duration: 1 }, '+=0.5');
+        });
+      }
     }
 
     // Scroll progress bar.
