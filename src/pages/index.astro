@@ -66,10 +66,9 @@ import Base from '../layouts/Base.astro';
             </div>
           </div>
         </div></div>
-        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Slide to reveal the Scriptures behind each gospel">
-        <div class="ba-divider"><span class="ba-knob" aria-hidden="true">⟺</span></div>
+        <div class="ba-divider"><span class="ba-knob" aria-label="Drag up or down to reveal the Scriptures">↕</span></div>
       </div>
-      <p class="ba-hint">Drag either way to reveal the Scriptures behind each →</p>
+      <p class="ba-hint">Drag the bar up or down to reveal the Scriptures</p>
     </div>
   </section>
 
@@ -113,7 +112,7 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <section class="divine" data-reveal>
-    <svg class="trinity" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.4"><circle cx="100" cy="72" r="46"/><circle cx="76" cy="118" r="46"/><circle cx="124" cy="118" r="46"/></g></svg>
+    <div class="trinity" aria-hidden="true"><svg viewBox="0 0 200 200"><g fill="none" stroke="currentColor" stroke-width="3.4"><circle cx="100" cy="72" r="46"/><circle cx="76" cy="118" r="46"/><circle cx="124" cy="118" r="46"/></g></svg></div>
     <div class="narrow" style="text-align:center;">
       <p class="eyebrow">What's at stake</p>
       <h2>You can stop managing your fear and start becoming a living icon again.</h2>
@@ -135,6 +134,12 @@ import Base from '../layouts/Base.astro';
         <a class="card" href="https://strengthenedbygrace.substack.com/"><div class="tag">Substack</div><h3>Strengthened by Grace</h3><p>Theological reflection, gospel interpretation, and spiritual restoration, free to read.</p><span class="go">Subscribe →</span></a>
         <a class="card" href="/give/"><div class="tag">Support</div><h3>Give</h3><p>Help keep the table set and the library growing. Every gift furthers the work.</p><span class="go">Give →</span></a>
       </div>
+    </div>
+  </section>
+
+  <section data-reveal>
+    <div class="wrap">
+      <img class="photo-hero" src="/assets/photos/gathering-1.jpg" alt="Friends gathered around the table for Wings, Whiskey and the Word" loading="lazy" width="1600" height="1067">
     </div>
   </section>
 

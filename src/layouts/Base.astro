@@ -58,27 +58,49 @@ const {
       setTimeout(() => els.forEach((e) => e.classList.add('in')), 1400);
     }
 
-    // Before/after slider(s): map the range value to the clip position.
+    // Before/after slider(s): drag the horizontal bar up/down to set the clip.
     document.querySelectorAll('.ba').forEach((ba) => {
-      const r = ba.querySelector('.ba-range');
-      if (!r) return;
-      const set = () => ba.style.setProperty('--pos', r.value + '%');
-      r.addEventListener('input', set);
-      set();
+      const knob = ba.querySelector('.ba-knob');
+      if (!knob) return;
+      let dragging = false;
+      const setPos = (v) => {
+        v = Math.max(0, Math.min(100, v));
+        ba.style.setProperty('--pos', v + '%');
+        knob.setAttribute('aria-valuenow', Math.round(v));
+      };
+      const setY = (clientY) => {
+        const r = ba.getBoundingClientRect();
+        setPos(((clientY - r.top) / r.height) * 100);
+      };
+      knob.setAttribute('role', 'slider');
+      knob.setAttribute('aria-orientation', 'vertical');
+      knob.setAttribute('aria-valuemin', '0');
+      knob.setAttribute('aria-valuemax', '100');
+      knob.setAttribute('aria-valuenow', '50');
+      knob.tabIndex = 0;
+      knob.addEventListener('pointerdown', (e) => { dragging = true; e.preventDefault(); });
+      document.addEventListener('pointermove', (e) => { if (dragging) setY(e.clientY); });
+      document.addEventListener('pointerup', () => { dragging = false; });
+      ba.addEventListener('click', (e) => { if (!e.target.closest('.ba-knob')) setY(e.clientY); });
+      knob.addEventListener('keydown', (e) => {
+        const cur = parseFloat(ba.style.getPropertyValue('--pos')) || 50;
+        if (e.key === 'ArrowUp') { setPos(cur - 6); e.preventDefault(); }
+        else if (e.key === 'ArrowDown') { setPos(cur + 6); e.preventDefault(); }
+      });
     });
 
     // GSAP scroll-scrubbed motion (skipped for reduced-motion).
     if (!reduce) {
       gsap.registerPlugin(ScrollTrigger);
       // the Trinity motif turns + grows gently as you scroll through its section
-      document.querySelectorAll('.trinity').forEach((el) => {
+      document.querySelectorAll('.trinity svg').forEach((el) => {
         const sec = el.closest('section');
         if (!sec) return;
         gsap.fromTo(
           el,
           { rotation: -25, scale: 0.45 },
-          { rotation: 40, scale: 1.95, ease: 'none',
-            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1 } }
+          { rotation: 40, scale: 1.95, ease: 'none', transformOrigin: '50% 50%',
+            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } }
         );
       });
       // soft scrubbed parallax on anything tagged data-parallax
@@ -86,7 +108,7 @@ const {
         const amt = parseFloat(el.getAttribute('data-parallax')) || 24;
         gsap.fromTo(
           el, { y: amt }, { y: -amt, ease: 'none',
-            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 } }
+            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } }
         );
       });
 
@@ -102,13 +124,18 @@ const {
           scrollTrigger: {
             trigger: plan, start: 'center center',
             end: '+=' + steps.length * 55 + '%',
-            pin: true, scrub: 0.6, anticipatePin: 1,
+            pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
           },
         });
         steps.forEach((s, i) => {
           if (i > 0) tl.to(s, { opacity: 1, y: 0, duration: 1 }, '+=0.5');
         });
       }
+
+      // Recompute all positions after pins/images settle (fixes scroll effects
+      // that sit below the pinned section on desktop).
+      ScrollTrigger.refresh();
+      window.addEventListener('load', () => ScrollTrigger.refresh());
     }
 
     // Scroll progress bar.
