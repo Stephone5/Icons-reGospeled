@@ -1,5 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
+
+// Pull the channel's latest video at build time (updates on every deploy).
+const CHANNEL_ID = 'UCvNaXQd1dsCEpZyagTL9URQ';
+let latestId = null;
+try {
+  const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
+  if (res.ok) {
+    const xml = await res.text();
+    const m = xml.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
+    if (m) latestId = m[1];
+  }
+} catch (e) {}
+const latestThumb = latestId ? `https://i.ytimg.com/vi/${latestId}/hqdefault.jpg` : null;
+const latestUrl = latestId
+  ? `https://www.youtube.com/watch?v=${latestId}`
+  : 'https://www.youtube.com/@LessHeresyThanExpected/videos';
 ---
 <Base title="Podcast, Less Heresy Than Expected | Icons reGospeled" description="Less Heresy Than Expected, a YouTube podcast for deeper, freer, more honest Christian conversation. Plus the Strengthened by Grace Substack.">
 
@@ -21,10 +37,10 @@ import Base from '../layouts/Base.astro';
 
   <section data-reveal>
     <div class="narrow">
-      <a class="poster" href="https://www.youtube.com/@LessHeresyThanExpected/videos">
+      <a class="poster" href={latestUrl} style={latestThumb ? `background-image:linear-gradient(rgba(20,16,12,.32),rgba(20,16,12,.6)), url('${latestThumb}');background-size:cover;background-position:center;` : undefined}>
         <div class="play">▶</div>
-        <h2>Watch the latest episodes</h2>
-        <p>Full interviews, shorter conversations, and clips, new on YouTube.</p>
+        <h2>{latestId ? 'Watch the latest episode' : 'Watch the latest episodes'}</h2>
+        <p>{latestId ? 'Now playing on the channel, new on YouTube.' : 'Full interviews, shorter conversations, and clips, new on YouTube.'}</p>
       </a>
     </div>
   </section>

@@ -58,34 +58,35 @@ const {
       setTimeout(() => els.forEach((e) => e.classList.add('in')), 1400);
     }
 
-    // Before/after slider(s): drag the horizontal bar up/down to set the clip.
+    // Before/after slider(s): vertical bar (drag left/right) on tablet+,
+    // horizontal bar (drag up/down) on phones.
     document.querySelectorAll('.ba').forEach((ba) => {
       const knob = ba.querySelector('.ba-knob');
       if (!knob) return;
       let dragging = false;
+      const phone = () => matchMedia('(max-width:640px)').matches;
       const setPos = (v) => {
         v = Math.max(0, Math.min(100, v));
         ba.style.setProperty('--pos', v + '%');
         knob.setAttribute('aria-valuenow', Math.round(v));
       };
-      const setY = (clientY) => {
+      const setFromPoint = (x, y) => {
         const r = ba.getBoundingClientRect();
-        setPos(((clientY - r.top) / r.height) * 100);
+        setPos(phone() ? ((y - r.top) / r.height) * 100 : ((x - r.left) / r.width) * 100);
       };
       knob.setAttribute('role', 'slider');
-      knob.setAttribute('aria-orientation', 'vertical');
       knob.setAttribute('aria-valuemin', '0');
       knob.setAttribute('aria-valuemax', '100');
       knob.setAttribute('aria-valuenow', '50');
       knob.tabIndex = 0;
       knob.addEventListener('pointerdown', (e) => { dragging = true; e.preventDefault(); });
-      document.addEventListener('pointermove', (e) => { if (dragging) setY(e.clientY); });
+      document.addEventListener('pointermove', (e) => { if (dragging) setFromPoint(e.clientX, e.clientY); });
       document.addEventListener('pointerup', () => { dragging = false; });
-      ba.addEventListener('click', (e) => { if (!e.target.closest('.ba-knob')) setY(e.clientY); });
+      ba.addEventListener('click', (e) => { if (!e.target.closest('.ba-knob')) setFromPoint(e.clientX, e.clientY); });
       knob.addEventListener('keydown', (e) => {
         const cur = parseFloat(ba.style.getPropertyValue('--pos')) || 50;
-        if (e.key === 'ArrowUp') { setPos(cur - 6); e.preventDefault(); }
-        else if (e.key === 'ArrowDown') { setPos(cur + 6); e.preventDefault(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { setPos(cur - 6); e.preventDefault(); }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { setPos(cur + 6); e.preventDefault(); }
       });
     });
 
@@ -93,16 +94,25 @@ const {
     if (!reduce) {
       gsap.registerPlugin(ScrollTrigger);
       // the Trinity motif turns + grows gently as you scroll through its section
-      document.querySelectorAll('.trinity svg').forEach((el) => {
-        const sec = el.closest('section');
-        if (!sec) return;
-        gsap.fromTo(
-          el,
-          { rotation: -25, scale: 0.45 },
-          { rotation: 40, scale: 1.95, ease: 'none', transformOrigin: '50% 50%',
-            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } }
-        );
-      });
+      // Trinity motif: rotate + grow on scroll — plain calc so the pin can't throw it off.
+      const trin = document.querySelector('.trinity svg');
+      const trinSec = trin && trin.closest('section');
+      if (trin && trinSec) {
+        let ticking = false;
+        const drawTrinity = () => {
+          ticking = false;
+          const r = trinSec.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          let p = (vh - r.top) / (vh + r.height);
+          p = Math.max(0, Math.min(1, p));
+          trin.style.transformOrigin = '50% 50%';
+          trin.style.transform = 'rotate(' + (-25 + p * 65) + 'deg) scale(' + (0.45 + p * 1.5) + ')';
+        };
+        const onT = () => { if (!ticking) { ticking = true; requestAnimationFrame(drawTrinity); } };
+        addEventListener('scroll', onT, { passive: true });
+        addEventListener('resize', onT);
+        drawTrinity();
+      }
       // soft scrubbed parallax on anything tagged data-parallax
       gsap.utils.toArray('[data-parallax]').forEach((el) => {
         const amt = parseFloat(el.getAttribute('data-parallax')) || 24;
@@ -183,6 +193,14 @@ const {
         msg.style.color = '';
         msg.textContent = "Thank you, you're on the list. Grace = peace.";
       });
+    });
+
+    // Open every navigational link in a new tab.
+    document.querySelectorAll('a[href]').forEach((a) => {
+      const h = a.getAttribute('href') || '';
+      if (h.startsWith('#') || h.startsWith('mailto:') || h.startsWith('tel:')) return;
+      a.target = '_blank';
+      a.rel = 'noopener';
     });
   </script>
 </body>
