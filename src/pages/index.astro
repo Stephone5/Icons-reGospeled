@@ -28,36 +28,48 @@ import Base from '../layouts/Base.astro';
   <!-- before/after gospel contrast (drag to compare) -->
   <section data-reveal>
     <div class="narrow" style="text-align:center;">
-      <p class="eyebrow">Lost in translation</p>
-      <h2>The same Scriptures, read without the fear.</h2>
+      <p class="eyebrow">The same word, two very different Gods</p>
+      <h2>Which gospel were you handed?</h2>
       <div class="rule center"></div>
     </div>
     <div class="wrap">
       <div class="ba">
         <div class="ba-after"><div class="ba-inner">
-          <span class="ba-tag">Closer to the Greek &amp; Hebrew</span>
-          <div class="ba-verses">
-            <div class="v"><b>John 12:32</b><span>“I will <em>drag</em> all people to myself.”</span></div>
-            <div class="v"><b>Galatians 2:16</b><span>Freed by the <em>faith of</em> Christ.</span></div>
-            <div class="v"><b>Romans 6:5</b><span>Grown together as <em>one</em> with Christ.</span></div>
-            <div class="v"><b>Isaiah 53:10 · LXX</b><span>The Lord willed to <em>cleanse</em> him.</span></div>
-            <div class="v"><b>Romans 3:25</b><span>The <em>mercy seat</em> — where God meets us.</span></div>
+          <div class="ba-col ba-scripture">
+            <span class="ba-tag">Closer to the Greek &amp; Hebrew</span>
+            <div class="ba-verses">
+              <div class="v"><b>John 12:32</b><span>“I will <em>drag</em> all people to myself.”</span></div>
+              <div class="v"><b>Galatians 2:16</b><span>Freed by the <em>faith of</em> Christ.</span></div>
+              <div class="v"><b>Romans 6:5</b><span>Grown together as <em>one</em> with Christ.</span></div>
+              <div class="v"><b>Isaiah 53:10 · LXX</b><span>The Lord willed to <em>cleanse</em> him.</span></div>
+              <div class="v"><b>Romans 3:25</b><span>The <em>mercy seat</em> — where God meets us.</span></div>
+            </div>
+          </div>
+          <div class="ba-col ba-summary ba-summary-right">
+            <span class="ba-tag">The gospel that heals</span>
+            <ul><li>A Father, running toward you</li><li>A Physician, not a courtroom</li><li>Healing of the whole person</li><li>Love, first and last</li><li>You — a living icon, restored</li></ul>
           </div>
         </div></div>
         <div class="ba-before"><div class="ba-inner">
-          <span class="ba-tag">The reading you were handed</span>
-          <div class="ba-verses">
-            <div class="v"><b>John 12:32</b><span>“I will <em>draw</em> all people to myself.”</span></div>
-            <div class="v"><b>Galatians 2:16</b><span>Freed by your <em>faith in</em> Christ.</span></div>
-            <div class="v"><b>Romans 6:5</b><span>Planted together with him in death.</span></div>
-            <div class="v"><b>Isaiah 53:10</b><span>“It pleased the Lord to <em>crush</em> him.”</span></div>
-            <div class="v"><b>Romans 3:25</b><span>A <em>propitiation</em> — appeasing wrath.</span></div>
+          <div class="ba-col ba-summary">
+            <span class="ba-tag">The God you were handed</span>
+            <ul><li>A scorekeeper, arms crossed</li><li>A courtroom, always in session</li><li>Fear as the engine</li><li>Wrath, first and last</li><li>You — a problem to manage</li></ul>
+          </div>
+          <div class="ba-col ba-scripture">
+            <span class="ba-tag">As it was handed</span>
+            <div class="ba-verses">
+              <div class="v"><b>John 12:32</b><span>“I will <em>draw</em> all people to myself.”</span></div>
+              <div class="v"><b>Galatians 2:16</b><span>Freed by your <em>faith in</em> Christ.</span></div>
+              <div class="v"><b>Romans 6:5</b><span>Planted together with him in death.</span></div>
+              <div class="v"><b>Isaiah 53:10</b><span>“It pleased the Lord to <em>crush</em> him.”</span></div>
+              <div class="v"><b>Romans 3:25</b><span>A <em>propitiation</em> — appeasing wrath.</span></div>
+            </div>
           </div>
         </div></div>
-        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Slide to compare the two readings">
+        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Slide to reveal the Scriptures behind each gospel">
         <div class="ba-divider"><span class="ba-knob" aria-hidden="true">⟺</span></div>
       </div>
-      <p class="ba-hint">Drag the line to compare →</p>
+      <p class="ba-hint">Drag either way to reveal the Scriptures behind each →</p>
     </div>
   </section>
 
