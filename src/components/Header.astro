@@ -1,0 +1,44 @@
+---
+const links = [
+  { href: '/about/', label: 'About' },
+  { href: '/community/', label: 'Community' },
+  { href: '/reading-finder/', label: 'Book Finder' },
+  { href: '/podcast/', label: 'Listen' },
+  { href: '/course/', label: 'Course' },
+];
+const path = Astro.url.pathname;
+const active = (href) => path === href || path === href.replace(/\/$/, '');
+---
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Icons reGospeled — home">
+      <img class="brand-logo" src="/assets/logo.png" alt="Icons reGospeled" width="1755" height="747">
+    </a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      {links.map((l) => (
+        <a href={l.href} aria-current={active(l.href) ? 'page' : undefined}>{l.label}</a>
+      ))}
+      <a class="give" href="/give/" aria-current={active('/give/') ? 'page' : undefined}>Give</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('site-nav');
+  if (btn && nav) {
+    btn.addEventListener('click', () => {
+      const open = document.body.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        document.body.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+      })
+    );
+  }
+</script>

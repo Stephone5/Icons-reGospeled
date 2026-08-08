@@ -1,44 +1,29 @@
 # Icons reGospeled — website
 
-The web home for Icons reGospeled — a StoryBrand-structured static site on GitHub Pages, one cohesive brand with the Book Finder.
+The web home for Icons reGospeled, built with [Astro](https://astro.build) and deployed to GitHub Pages at **[iconsrg.org](https://iconsrg.org)**.
 
-## Structure
+## How it's built
 
-- `index.html` — homepage (full StoryBrand homepage).
-- `about/` — About: the What & Why (theological vision, mission).
-- `community/` — Wings/Whiskey/Word, Movies for Humans, retreats, "Restoring the Icon" gift, PRC support.
-- `podcast/` — *Less Heresy Than Expected* + *Strengthened by Grace* Substack.
-- `course/` — *The Gospel You Were Never Told* ($20 Kajabi course).
-- `give/` — Givebutter giving + meal fee.
-- `shop/` — Printful merch.
-- `contact/` — email, phone, socials.
-- `reading-finder/` — the **Book Finder** (self-contained, sheet-driven; do not rebuild).
-- `assets/site.css` — shared design system (tokens match the Book Finder).
-- `assets/signup.js` — email signup → Kit (ConvertKit) form 9754678 (same list the finder uses).
+- **Astro** — pages in `src/pages/` (`.astro`), shared UI in `src/components/` (`Header`, `Footer`) and `src/layouts/Base.astro`. Change the nav or footer once, and it updates everywhere.
+- **Global styles** — `src/styles/global.css`. Flexbox layouts, brand tokens shared with the Book Finder, responsive down to phones with a hamburger menu, and progressive scroll-reveal.
+- **`public/`** — served as-is at the site root:
+  - `public/reading-finder/` — the **Book Finder** (a self-contained tool; intentionally NOT part of the Astro build so it stays isolated and portable).
+  - `public/assets/logo.png` — the brand logo used in every header.
+  - `public/CNAME` — the custom domain (`iconsrg.org`).
 
-Links between pages are **relative** so the site works both at the project-pages base path (`/Icons-reGospeled/`) and later at a custom apex domain.
+## Local development
 
-## Design system
-
-Palette: ground `#ECEEF2`, ink `#39342C`, muted `#867F73`, gold link `#8A6413`, gold-fill `#C69430`, card `#F6F8FB`. Fonts: Playfair Display (headings) + Epilogue (body), loaded via Google Fonts.
-
-## Live URLs (GitHub Pages)
-
-- Homepage: `https://stephone5.github.io/Icons-reGospeled/`
-- Book Finder: `https://stephone5.github.io/Icons-reGospeled/reading-finder/`
-
-A custom domain can be added later in Settings → Pages.
-
-## Local preview
-
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # outputs static site to dist/
+npm run preview  # preview the built dist/
 ```
-python -m http.server 8848
-```
-Then open `http://localhost:8848/`.
 
-## Wiring still to do
+## Deploy
 
-- **Course link:** all "Enroll" buttons point to `linktr.ee/iconsrg`. Swap in the direct Kajabi course URL when handy (`course/index.html`, two links).
-- **Podcast:** the Listen page links out to YouTube via a poster card. Optional upgrade: embed a specific playlist/video ID for an inline player.
-- **Kit welcome sequence:** Kit's free plan does not auto-send welcome sequences. Decide: upgrade Kit (~$33/mo) or move to MailerLite/Brevo. Signups currently POST to the Kit form regardless.
-- **Custom domain:** point the owned domain at GitHub Pages when ready.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages. In the repo, **Settings → Pages → Source must be set to "GitHub Actions."**
+
+## Editing the Book Finder
+
+The finder is a single self-contained file at `public/reading-finder/index.html` (fonts + covers embedded; book data is pulled live from a published Google Sheet CSV). Edit that file directly; it is not processed by the Astro build.

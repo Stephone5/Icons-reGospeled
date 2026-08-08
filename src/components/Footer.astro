@@ -1,0 +1,46 @@
+---
+const links = [
+  { href: '/about/', label: 'About' },
+  { href: '/community/', label: 'Community' },
+  { href: '/reading-finder/', label: 'Book Finder' },
+  { href: '/podcast/', label: 'Podcast' },
+  { href: '/course/', label: 'The Course' },
+  { href: '/give/', label: 'Give' },
+  { href: '/shop/', label: 'Shop' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="col-brand">
+        <a class="brand-word" href="/"><span class="mark">✝</span> Icons reGospeled</a>
+        <p style="margin-top:14px;font-size:15px;max-width:32ch;">A gospel that heals — honest theology, psychology, and real community. State College, PA.</p>
+        <p style="font-size:14px;">A registered 501(c)(3) nonprofit.</p>
+      </div>
+      <div class="col-links">
+        <h4>Explore</h4>
+        <ul>
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="col-signup">
+        <h4>Stay in touch</h4>
+        <p style="font-size:15px;">Your next book, occasional letters, and no noise. Unsubscribe anytime.</p>
+        <form class="signup" novalidate>
+          <input type="email" placeholder="you@email.com" aria-label="Your email" autocomplete="email" required>
+          <button class="btn btn-gold" type="submit">Subscribe</button>
+        </form>
+        <p class="form-msg"></p>
+        <p style="font-size:14px;margin-top:16px;">
+          <a href="mailto:jdkrider@iconsrg.org">jdkrider@iconsrg.org</a><br>
+          <a href="tel:+18143608058">(814) 360-8058</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Icons reGospeled. Grace = peace.</span>
+      <span><a href="https://linktr.ee/iconsrg">linktr.ee/iconsrg</a></span>
+    </div>
+  </div>
+</footer>
