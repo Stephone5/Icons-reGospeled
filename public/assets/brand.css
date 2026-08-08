@@ -1,0 +1,37 @@
+/* Icons reGospeled — shared brand layer.
+   Single source of truth for brand tokens + the ambient cloud background.
+   Linked by BOTH the Astro site and the Book Finder, so a change here flows
+   to both and the finder never falls out of date. */
+
+:root{
+  --ground:#ECEEF2; --card:#F6F8FB; --white:#FFFFFF; --ink:#39342C; --muted:#867F73;
+  --line:#DDE1E8; --gold:#8A6413; --gold-fill:#C69430; --gold-line:#DCA537; --on-gold:#2C2620;
+  --shadow:0 10px 26px -18px rgba(90,96,110,.55);
+  --shadow-lg:0 22px 54px -30px rgba(60,66,80,.6);
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Epilogue',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+/* ---- ethereal drifting color clouds (site-wide ambient background) ----
+   Soft, heavily-blurred blobs that slowly wander across the screen — barely
+   more color than the white ground. Sits behind everything. */
+.aurora{position:fixed;inset:-15%;z-index:-1;overflow:hidden;pointer-events:none;
+  filter:blur(90px) saturate(120%);}
+.aurora span{position:absolute;display:block;border-radius:50%;will-change:transform;}
+.aurora .c1{width:46vw;height:46vw;left:2vw;top:-2vw;
+  background:radial-gradient(circle,rgba(198,148,48,.30),transparent 70%);animation:drift1 46s ease-in-out infinite;}
+.aurora .c2{width:42vw;height:42vw;right:0;top:8vw;
+  background:radial-gradient(circle,rgba(201,139,122,.24),transparent 70%);animation:drift2 58s ease-in-out infinite;}
+.aurora .c3{width:50vw;height:50vw;left:6vw;bottom:-8vw;
+  background:radial-gradient(circle,rgba(140,164,196,.24),transparent 70%);animation:drift3 64s ease-in-out infinite;}
+.aurora .c4{width:34vw;height:34vw;right:8vw;bottom:6vw;
+  background:radial-gradient(circle,rgba(198,148,48,.20),transparent 70%);animation:drift4 52s ease-in-out infinite;}
+@keyframes drift1{0%{transform:translate(0,0) scale(1);}25%{transform:translate(20vw,12vw) scale(1.1);}
+  50%{transform:translate(30vw,30vw) scale(1.05);}75%{transform:translate(8vw,22vw) scale(1.12);}100%{transform:translate(0,0) scale(1);}}
+@keyframes drift2{0%{transform:translate(0,0) scale(1.05);}25%{transform:translate(-22vw,10vw) scale(1);}
+  50%{transform:translate(-32vw,26vw) scale(1.1);}75%{transform:translate(-12vw,8vw) scale(1.04);}100%{transform:translate(0,0) scale(1.05);}}
+@keyframes drift3{0%{transform:translate(0,0) scale(1);}25%{transform:translate(18vw,-14vw) scale(1.12);}
+  50%{transform:translate(28vw,-4vw) scale(1.06);}75%{transform:translate(10vw,-18vw) scale(1.1);}100%{transform:translate(0,0) scale(1);}}
+@keyframes drift4{0%{transform:translate(0,0) scale(1);}25%{transform:translate(-16vw,-10vw) scale(1.08);}
+  50%{transform:translate(-26vw,-22vw) scale(1.14);}75%{transform:translate(-8vw,-6vw) scale(1.05);}100%{transform:translate(0,0) scale(1);}}
+@media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}

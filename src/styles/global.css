@@ -3,20 +3,8 @@
    Layout is flexbox-first so cards/steps reflow cleanly phone -> tablet -> desktop. */
 
 :root{
-  --ground:#ECEEF2;      /* page background */
-  --ink:#39342C;         /* warm charcoal text */
-  --muted:#867F73;       /* secondary text */
-  --card:#F6F8FB;        /* card surface */
-  --line:#DDE1E8;        /* hairlines / borders */
-  --white:#FFFFFF;
-  --gold:#8A6413;        /* gold for links / small text (AA on light) */
-  --gold-fill:#C69430;   /* gold accent fills / buttons */
-  --gold-line:#DCA537;   /* slightly brighter gold for the accent rules under headings */
-  --on-gold:#2C2620;     /* text on gold */
-  --shadow:0 10px 26px -18px rgba(90,96,110,.55);
-  --shadow-lg:0 22px 54px -30px rgba(60,66,80,.6);
-  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
-  --sans:'Epilogue',system-ui,-apple-system,'Segoe UI',sans-serif;
+  /* brand tokens (colors, shadows, fonts) live in /assets/brand.css,
+     shared with the Book Finder so both stay in sync. */
   --maxw:1080px;
   --header-h:71px;
 }
@@ -29,25 +17,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ---- ethereal drifting color clouds (site-wide ambient background) ----
-   Very soft, heavily blurred blobs that slowly float — barely more color
-   than the white ground. Sits behind everything; opaque sections cover it,
-   translucent ones let it whisper through. */
-.aurora{position:fixed;inset:-12%;z-index:-1;overflow:hidden;pointer-events:none;
-  filter:blur(84px) saturate(118%);}
-.aurora span{position:absolute;display:block;border-radius:50%;will-change:transform;}
-.aurora .c1{width:48vw;height:48vw;left:-6vw;top:-6vw;
-  background:radial-gradient(circle,rgba(198,148,48,.26),transparent 70%);animation:cloud1 38s ease-in-out infinite alternate;}
-.aurora .c2{width:44vw;height:44vw;right:-8vw;top:6vw;
-  background:radial-gradient(circle,rgba(201,139,122,.20),transparent 70%);animation:cloud2 46s ease-in-out infinite alternate;}
-.aurora .c3{width:52vw;height:52vw;left:10vw;bottom:-16vw;
-  background:radial-gradient(circle,rgba(140,164,196,.20),transparent 70%);animation:cloud3 54s ease-in-out infinite alternate;}
-.aurora .c4{width:36vw;height:36vw;right:4vw;bottom:0;
-  background:radial-gradient(circle,rgba(198,148,48,.16),transparent 70%);animation:cloud1 42s ease-in-out infinite alternate-reverse;}
-@keyframes cloud1{from{transform:translate(0,0) scale(1);}to{transform:translate(6vw,4vw) scale(1.14);}}
-@keyframes cloud2{from{transform:translate(0,0) scale(1.05);}to{transform:translate(-5vw,6vw) scale(1);}}
-@keyframes cloud3{from{transform:translate(0,0) scale(1);}to{transform:translate(4vw,-6vw) scale(1.18);}}
-@media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
+/* the ambient cloud background now lives in /assets/brand.css (shared) */
 img{max-width:100%;display:block;}
 a{color:var(--gold);}
 h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.14;letter-spacing:-.01em;margin:0;text-wrap:balance;}
@@ -125,6 +95,17 @@ section{padding:clamp(48px,8vw,88px) 0;}
 .divine .trinity{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:min(460px,80vw);opacity:.08;color:var(--gold-fill);pointer-events:none;z-index:0;}
 .divine > .wrap,.divine > .narrow{position:relative;z-index:1;}
+
+/* ---- Fathers marquee — a slow "communion of the ancients" band ---- */
+.fathers{overflow:hidden;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(246,248,251,.5);}
+.fathers .label{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 14px;}
+.fathers-track{display:flex;width:max-content;animation:fathers 52s linear infinite;}
+.fathers-track span{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.3vw,24px);color:var(--muted);white-space:nowrap;padding:0 4px;}
+.fathers-track span::before{content:"\271B";color:var(--gold-line);margin:0 26px;font-style:normal;font-size:.72em;vertical-align:middle;}
+@keyframes fathers{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.fathers:hover .fathers-track{animation-play-state:paused;}
+@media(prefers-reduced-motion:reduce){.fathers-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;}}
 .two-col{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);align-items:center;}
 .two-col > *{flex:1 1 340px;min-width:0;}
 
