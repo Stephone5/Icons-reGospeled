@@ -67,6 +67,9 @@ section{padding:clamp(48px,8vw,88px) 0;}
 .brand{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);text-decoration:none;
   display:inline-flex;align-items:center;gap:9px;}
 .brand .mark{color:var(--gold-fill);}
+.brand{flex-shrink:0;}
+.brand-logo{height:42px;width:auto;max-width:none;display:block;}
+@media(max-width:560px){.brand-logo{height:34px;}}
 .nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
 .nav a{color:var(--ink);text-decoration:none;font-size:15px;font-weight:600;}
 .nav a:hover{color:var(--gold);}

@@ -145,6 +145,9 @@
   .rf-brand{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);text-decoration:none;
     display:inline-flex;align-items:center;gap:9px;}
   .rf-brand .mk{color:var(--gold-fill);}
+  .rf-brand{flex-shrink:0;}
+  .rf-brand .brand-logo{height:42px;width:auto;max-width:none;display:block;}
+  @media(max-width:560px){.rf-brand .brand-logo{height:34px;}}
   .rf-menu{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
   .rf-menu a{color:var(--ink);text-decoration:none;font-size:15px;font-weight:600;}
   .rf-menu a:hover{color:var(--gold-ink);}
@@ -174,7 +177,7 @@
 
 <header class="rf-hdr">
   <div class="rf-hdr-in">
-    <a class="rf-brand" href="../"><span class="mk">✝</span> Icons reGospeled</a>
+    <a class="rf-brand" href="../"><img class="brand-logo" src="../assets/logo.png" alt="Icons reGospeled"></a>
     <nav class="rf-menu" aria-label="Primary">
       <a href="../about/">About</a>
       <a href="../community/">Community</a>
