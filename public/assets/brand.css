@@ -15,17 +15,17 @@
 /* ---- ethereal drifting color clouds (site-wide ambient background) ----
    Soft, heavily-blurred blobs that slowly wander across the screen — barely
    more color than the white ground. Sits behind everything. */
-.aurora{position:fixed;inset:-15%;z-index:-1;overflow:hidden;pointer-events:none;
-  filter:blur(90px) saturate(120%);}
+.aurora{position:fixed;inset:-15%;z-index:0;overflow:hidden;pointer-events:none;
+  filter:blur(80px) saturate(125%);transform:translateZ(0);}
 .aurora span{position:absolute;display:block;border-radius:50%;will-change:transform;}
 .aurora .c1{width:46vw;height:46vw;left:2vw;top:-2vw;
-  background:radial-gradient(circle,rgba(198,148,48,.30),transparent 70%);animation:drift1 46s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(198,148,48,.38),transparent 70%);animation:drift1 30s ease-in-out infinite;}
 .aurora .c2{width:42vw;height:42vw;right:0;top:8vw;
-  background:radial-gradient(circle,rgba(201,139,122,.24),transparent 70%);animation:drift2 58s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(201,139,122,.32),transparent 70%);animation:drift2 36s ease-in-out infinite;}
 .aurora .c3{width:50vw;height:50vw;left:6vw;bottom:-8vw;
-  background:radial-gradient(circle,rgba(140,164,196,.24),transparent 70%);animation:drift3 64s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(140,164,196,.30),transparent 70%);animation:drift3 40s ease-in-out infinite;}
 .aurora .c4{width:34vw;height:34vw;right:8vw;bottom:6vw;
-  background:radial-gradient(circle,rgba(198,148,48,.20),transparent 70%);animation:drift4 52s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(198,148,48,.28),transparent 70%);animation:drift4 32s ease-in-out infinite;}
 @keyframes drift1{0%{transform:translate(0,0) scale(1);}25%{transform:translate(20vw,12vw) scale(1.1);}
   50%{transform:translate(30vw,30vw) scale(1.05);}75%{transform:translate(8vw,22vw) scale(1.12);}100%{transform:translate(0,0) scale(1);}}
 @keyframes drift2{0%{transform:translate(0,0) scale(1.05);}25%{transform:translate(-22vw,10vw) scale(1);}
@@ -35,3 +35,8 @@
 @keyframes drift4{0%{transform:translate(0,0) scale(1);}25%{transform:translate(-16vw,-10vw) scale(1.08);}
   50%{transform:translate(-26vw,-22vw) scale(1.14);}75%{transform:translate(-8vw,-6vw) scale(1.05);}100%{transform:translate(0,0) scale(1);}}
 @media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
+/* mobile: small viewports need bigger blobs + less blur, or the clouds vanish */
+@media(max-width:640px){
+  .aurora{filter:blur(46px) saturate(125%);inset:-25%;}
+  .aurora .c1,.aurora .c2,.aurora .c3,.aurora .c4{width:96vw;height:96vw;}
+}

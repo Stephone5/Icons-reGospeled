@@ -34,6 +34,9 @@ const {
   <Footer />
 
   <script>
+    import gsap from 'gsap';
+    import ScrollTrigger from 'gsap/ScrollTrigger';
+
     // Progressive reveal — content is visible by default; only arm the hide
     // once JS is confirmed running, then reveal on scroll (with a failsafe).
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -63,6 +66,30 @@ const {
       r.addEventListener('input', set);
       set();
     });
+
+    // GSAP scroll-scrubbed motion (skipped for reduced-motion).
+    if (!reduce) {
+      gsap.registerPlugin(ScrollTrigger);
+      // the Trinity motif turns + grows gently as you scroll through its section
+      document.querySelectorAll('.trinity').forEach((el) => {
+        const sec = el.closest('section');
+        if (!sec) return;
+        gsap.fromTo(
+          el,
+          { rotation: -10, scale: 0.9 },
+          { rotation: 10, scale: 1.1, ease: 'none',
+            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1 } }
+        );
+      });
+      // soft scrubbed parallax on anything tagged data-parallax
+      gsap.utils.toArray('[data-parallax]').forEach((el) => {
+        const amt = parseFloat(el.getAttribute('data-parallax')) || 24;
+        gsap.fromTo(
+          el, { y: amt }, { y: -amt, ease: 'none',
+            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 } }
+        );
+      });
+    }
 
     // Scroll progress bar.
     const bar = document.querySelector('.scroll-progress i');
