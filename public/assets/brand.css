@@ -24,7 +24,7 @@
 .aurora .c2{width:44vw;height:48vw;right:0;top:8vw;
   background:radial-gradient(circle,rgba(201,139,122,.34),transparent 68%);animation:drift2 12s ease-in-out infinite;}
 .aurora .c3{width:52vw;height:46vw;left:26vw;bottom:-10vw;
-  background:radial-gradient(circle,rgba(140,164,196,.32),transparent 68%);animation:drift3 14s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(196,110,70,.32),transparent 68%);animation:drift3 14s ease-in-out infinite;}
 @keyframes drift1{
   0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
   33%{transform:translate(18vw,14vw) rotate(50deg) scale(1.2,.82);border-radius:66% 34% 40% 60% / 55% 62% 38% 45%;}
