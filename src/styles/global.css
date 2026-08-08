@@ -112,6 +112,21 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
 .card .go{margin-top:auto;color:var(--gold);font-weight:700;font-size:14.5px;}
 .card .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;}
 
+/* ---- feature list — box-free alternative to cards (home "guide" section) ---- */
+.features{list-style:none;margin:0;padding:0;}
+.features li{padding:20px 0;border-top:1px solid var(--line);}
+.features li:first-child{border-top:0;padding-top:0;}
+.features .k{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:5px;}
+.features h3{margin:0 0 4px;}
+.features p{color:var(--muted);font-size:15.5px;margin:0;}
+
+/* ---- numbered path — box-free steps (home "four steps" section) ---- */
+.path{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:30px 34px;}
+.path li{flex:1 1 200px;display:flex;gap:16px;align-items:flex-start;text-align:left;}
+.path .n{font-family:var(--serif);font-size:42px;line-height:.9;color:var(--gold-line);flex:0 0 auto;}
+.path h3{font-size:19px;margin:2px 0 6px;}
+.path p{color:var(--muted);font-size:15px;margin:0;}
+
 /* ---- numbered plan (flexbox) ---- */
 .steps{display:flex;flex-wrap:wrap;gap:20px;}
 .steps > *{flex:1 1 200px;}
