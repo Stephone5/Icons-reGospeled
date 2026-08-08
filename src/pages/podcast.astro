@@ -1,15 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// Pull the channel's latest video at build time (updates on every deploy).
+// Pull the channel's latest full VIDEO/podcast at build time (excludes Shorts).
 const CHANNEL_ID = 'UCvNaXQd1dsCEpZyagTL9URQ';
+const HANDLE = 'LessHeresyThanExpected';
 let latestId = null;
 try {
+  // collect Shorts ids so we can skip them
+  const shorts = new Set();
+  try {
+    const s = await fetch(`https://www.youtube.com/@${HANDLE}/shorts`, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (s.ok) {
+      const st = await s.text();
+      (st.match(/"videoId":"[A-Za-z0-9_-]{11}"/g) || []).forEach((x) => shorts.add(x.slice(11, 22)));
+    }
+  } catch (e) {}
+  // RSS is newest-first; take the first entry that isn't a Short
   const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
   if (res.ok) {
     const xml = await res.text();
-    const m = xml.match(/<yt:videoId>([^<]+)<\/yt:videoId>/);
-    if (m) latestId = m[1];
+    const ids = (xml.match(/<yt:videoId>[^<]+<\/yt:videoId>/g) || []).map((m) => m.replace(/<\/?yt:videoId>/g, ''));
+    latestId = ids.find((id) => !shorts.has(id)) || ids[0] || null;
   }
 } catch (e) {}
 const latestThumb = latestId ? `https://i.ytimg.com/vi/${latestId}/hqdefault.jpg` : null;
