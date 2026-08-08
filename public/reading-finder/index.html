@@ -262,13 +262,13 @@
         <div class="step" data-step="3">
           <div class="estep">
             <div class="q-label">Where should we send it?</div>
-            <p>Your two picks plus a short starter guide — no noise, unsubscribe anytime.</p>
+            <p>Your two picks plus a short starter guide, no noise, unsubscribe anytime.</p>
             <div class="efield">
               <input type="email" id="email" placeholder="you@email.com" aria-label="Your email" autocomplete="email">
               <button class="btn" id="reveal" disabled>Reveal my books</button>
             </div>
             <div class="err" id="err" role="alert"></div>
-            <p class="note">Prototype — the email box isn't wired to storage yet; this is where MailerLite connects.</p>
+            <p class="note">Prototype, the email box isn't wired to storage yet; this is where MailerLite connects.</p>
           </div>
           <div class="nav"><button class="back" data-back>&larr; Back</button><span></span></div>
         </div>
@@ -286,7 +286,7 @@
 
 <div class="wrap-wide">
   <div class="divider"><span>The full library</span></div>
-  <p class="lib-intro">Every title is part of the reGospeled reading path — 60+ books across six phases, from first steps out of fear toward the widest hope. Search a title or author, or filter by what you're after.</p>
+  <p class="lib-intro">Every title is part of the reGospeled reading path, 60+ books across six phases, from first steps out of fear toward the widest hope. Search a title or author, or filter by what you're after.</p>
   <div class="lib-search">
     <span class="mag" aria-hidden="true">⌕</span>
     <input id="q" type="search" placeholder="Search by title or author…" autocomplete="off"
@@ -378,10 +378,10 @@
   reveal.addEventListener('click',function(){
     err.textContent="";var v=email.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){err.textContent="Please enter a valid email so we can send your picks.";return;}
-    if(!B.length){err.textContent="One moment — still loading the library…";return;}
+    if(!B.length){err.textContent="One moment, still loading the library…";return;}
     subscribe(v);
     var top=B.map(function(b,i){return{b:b,s:score(b),i:i};}).sort(function(x,y){return y.s-x.s||x.i-y.i;}).slice(0,2).map(function(r){return r.b;});
-    document.getElementById('summary').innerHTML='For someone <b>'+LEVEL[ans.level]+'</b>, drawn to <b>'+TOPIC[ans.topic]+'</b>, who learns best through <b>'+VOICE[ans.voice]+'</b> —';
+    document.getElementById('summary').innerHTML='For someone <b>'+LEVEL[ans.level]+'</b>, drawn to <b>'+TOPIC[ans.topic]+'</b>, who learns best through <b>'+VOICE[ans.voice]+'</b>, ';
     var picks=document.getElementById('picks');picks.innerHTML="";
     top.forEach(function(b,idx){var el=document.createElement('article');el.className='pick'+(idx===0?' primary':'');var fit=(LEAD[b.tp[0]]||"This ")+b.w;
       el.innerHTML='<p class="tier">'+(idx===0?'Your top match':'Also worth your time')+'</p>'+
@@ -397,7 +397,7 @@
   var grid=document.getElementById('grid'),filters=document.getElementById('filters'),curCat="All",curQuery="";
   function buildChips(){var cats=["All"].concat(Array.from(new Set(B.map(function(b){return b.c;}).filter(Boolean))));filters.innerHTML="";cats.forEach(function(cat,i){var c=document.createElement('button');c.className='chip'+(i===0?' on':'');c.textContent=cat;c.addEventListener('click',function(){filters.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');curCat=cat;curQuery="";if(q){q.value="";}closeSugg();render();});filters.appendChild(c);});}
   function matchesQ(b){var s=((b.t||'')+' '+(b.a||'')).toLowerCase();return s.indexOf(curQuery)>-1;}
-  function render(){grid.innerHTML="";var list=B.filter(function(b){return (curQuery?matchesQ(b):(curCat==="All"||b.c===curCat));});if(!list.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">No titles match your search — try another word, or clear it to see everything.</p>';return;}list.forEach(function(b){var el=document.createElement('article');el.className='book';el.innerHTML=coverHTML(b,'cv')+'<h4>'+b.t+'</h4><p class="a">'+b.a+'</p><p class="d">'+b.d+'</p><span class="tag">'+b.c+'</span><a class="co" href="'+link(b)+'" target="_blank" rel="noopener">Find it on '+store(b)+' →</a>';grid.appendChild(el);});}
+  function render(){grid.innerHTML="";var list=B.filter(function(b){return (curQuery?matchesQ(b):(curCat==="All"||b.c===curCat));});if(!list.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">No titles match your search, try another word, or clear it to see everything.</p>';return;}list.forEach(function(b){var el=document.createElement('article');el.className='book';el.innerHTML=coverHTML(b,'cv')+'<h4>'+b.t+'</h4><p class="a">'+b.a+'</p><p class="d">'+b.d+'</p><span class="tag">'+b.c+'</span><a class="co" href="'+link(b)+'" target="_blank" rel="noopener">Find it on '+store(b)+' →</a>';grid.appendChild(el);});}
 
   // --- library search + title suggestions ---
   var q=document.getElementById('q'),sugg=document.getElementById('sugg'),hi=-1;
@@ -428,7 +428,7 @@
     document.addEventListener('click',function(e){if(!e.target.closest('.lib-search'))closeSugg();});
   }
 
-  function afterData(){ if(!B.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">Could not load the library — please refresh.</p>';return;} buildChips(); render(); }
+  function afterData(){ if(!B.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px">Could not load the library, please refresh.</p>';return;} buildChips(); render(); }
   fetch(CSV_URL).then(function(r){return r.text();}).then(function(txt){B=parseBooks(txt);afterData();}).catch(function(){B=[];afterData();});
 
   window.addEventListener('resize',setHeight);

@@ -1,4 +1,4 @@
-/* Icons reGospeled — shared brand layer.
+/* Icons reGospeled, shared brand layer.
    Single source of truth for brand tokens + the ambient cloud background.
    Linked by BOTH the Astro site and the Book Finder, so a change here flows
    to both and the finder never falls out of date. */
@@ -13,27 +13,40 @@
 }
 
 /* ---- ethereal drifting color clouds (site-wide ambient background) ----
-   Soft, heavily-blurred blobs that slowly wander across the screen — barely
-   more color than the white ground. Sits behind everything. */
+   Soft, blurred, organic blobs that morph and stretch as they drift, like
+   slow-moving organisms. Barely more color than the ground. Behind everything. */
 .aurora{position:fixed;inset:-15%;z-index:0;overflow:hidden;pointer-events:none;
-  filter:blur(80px) saturate(125%);transform:translateZ(0);}
-.aurora span{position:absolute;display:block;border-radius:50%;will-change:transform;}
-.aurora .c1{width:46vw;height:46vw;left:2vw;top:-2vw;
-  background:radial-gradient(circle,rgba(198,148,48,.38),transparent 70%);animation:drift1 30s ease-in-out infinite;}
-.aurora .c2{width:42vw;height:42vw;right:0;top:8vw;
-  background:radial-gradient(circle,rgba(201,139,122,.32),transparent 70%);animation:drift2 36s ease-in-out infinite;}
-.aurora .c3{width:50vw;height:50vw;left:6vw;bottom:-8vw;
-  background:radial-gradient(circle,rgba(140,164,196,.30),transparent 70%);animation:drift3 40s ease-in-out infinite;}
-.aurora .c4{width:34vw;height:34vw;right:8vw;bottom:6vw;
-  background:radial-gradient(circle,rgba(198,148,48,.28),transparent 70%);animation:drift4 32s ease-in-out infinite;}
-@keyframes drift1{0%{transform:translate(0,0) scale(1);}25%{transform:translate(20vw,12vw) scale(1.1);}
-  50%{transform:translate(30vw,30vw) scale(1.05);}75%{transform:translate(8vw,22vw) scale(1.12);}100%{transform:translate(0,0) scale(1);}}
-@keyframes drift2{0%{transform:translate(0,0) scale(1.05);}25%{transform:translate(-22vw,10vw) scale(1);}
-  50%{transform:translate(-32vw,26vw) scale(1.1);}75%{transform:translate(-12vw,8vw) scale(1.04);}100%{transform:translate(0,0) scale(1.05);}}
-@keyframes drift3{0%{transform:translate(0,0) scale(1);}25%{transform:translate(18vw,-14vw) scale(1.12);}
-  50%{transform:translate(28vw,-4vw) scale(1.06);}75%{transform:translate(10vw,-18vw) scale(1.1);}100%{transform:translate(0,0) scale(1);}}
-@keyframes drift4{0%{transform:translate(0,0) scale(1);}25%{transform:translate(-16vw,-10vw) scale(1.08);}
-  50%{transform:translate(-26vw,-22vw) scale(1.14);}75%{transform:translate(-8vw,-6vw) scale(1.05);}100%{transform:translate(0,0) scale(1);}}
+  filter:blur(60px) saturate(128%);transform:translateZ(0);}
+.aurora span{position:absolute;display:block;will-change:transform,border-radius;
+  border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
+.aurora .c1{width:48vw;height:44vw;left:2vw;top:-2vw;
+  background:radial-gradient(circle,rgba(198,148,48,.40),transparent 68%);animation:drift1 34s ease-in-out infinite;}
+.aurora .c2{width:44vw;height:48vw;right:0;top:8vw;
+  background:radial-gradient(circle,rgba(201,139,122,.34),transparent 68%);animation:drift2 40s ease-in-out infinite;}
+.aurora .c3{width:52vw;height:46vw;left:6vw;bottom:-8vw;
+  background:radial-gradient(circle,rgba(140,164,196,.32),transparent 68%);animation:drift3 44s ease-in-out infinite;}
+.aurora .c4{width:36vw;height:40vw;right:8vw;bottom:6vw;
+  background:radial-gradient(circle,rgba(198,148,48,.30),transparent 68%);animation:drift4 36s ease-in-out infinite;}
+@keyframes drift1{
+  0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
+  33%{transform:translate(18vw,14vw) rotate(50deg) scale(1.2,.82);border-radius:66% 34% 40% 60% / 55% 62% 38% 45%;}
+  66%{transform:translate(26vw,26vw) rotate(120deg) scale(.85,1.28);border-radius:38% 62% 55% 45% / 62% 40% 60% 38%;}
+  100%{transform:translate(0,0) rotate(360deg) scale(1,1);border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}}
+@keyframes drift2{
+  0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:60% 40% 45% 55% / 55% 45% 55% 45%;}
+  33%{transform:translate(-20vw,12vw) rotate(-60deg) scale(.82,1.24);border-radius:38% 62% 60% 40% / 45% 60% 40% 55%;}
+  66%{transform:translate(-30vw,24vw) rotate(-140deg) scale(1.26,.88);border-radius:58% 42% 38% 62% / 60% 42% 58% 40%;}
+  100%{transform:translate(0,0) rotate(-360deg) scale(1,1);border-radius:60% 40% 45% 55% / 55% 45% 55% 45%;}}
+@keyframes drift3{
+  0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:50% 50% 55% 45% / 48% 52% 48% 52%;}
+  33%{transform:translate(16vw,-12vw) rotate(70deg) scale(1.24,.86);border-radius:64% 36% 42% 58% / 58% 44% 56% 42%;}
+  66%{transform:translate(24vw,-6vw) rotate(150deg) scale(.88,1.22);border-radius:40% 60% 58% 42% / 44% 58% 42% 56%;}
+  100%{transform:translate(0,0) rotate(360deg) scale(1,1);border-radius:50% 50% 55% 45% / 48% 52% 48% 52%;}}
+@keyframes drift4{
+  0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:55% 45% 40% 60% / 52% 48% 52% 48%;}
+  33%{transform:translate(-14vw,-10vw) rotate(-50deg) scale(.86,1.22);border-radius:40% 60% 62% 38% / 60% 45% 55% 40%;}
+  66%{transform:translate(-22vw,-18vw) rotate(-130deg) scale(1.22,.9);border-radius:62% 38% 45% 55% / 42% 60% 40% 58%;}
+  100%{transform:translate(0,0) rotate(-360deg) scale(1,1);border-radius:55% 45% 40% 60% / 52% 48% 52% 48%;}}
 @media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
 /* mobile: small viewports need bigger blobs + less blur, or the clouds vanish */
 @media(max-width:640px){

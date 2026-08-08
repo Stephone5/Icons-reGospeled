@@ -4,8 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const {
-  title = 'Icons reGospeled — a gospel that heals',
-  description = 'Icons reGospeled helps the wounded and the curious rediscover a gospel that heals — through honest theology, psychology, and real community. State College, PA · 501(c)(3) Pennsylvania nonprofit.',
+  title = 'Icons reGospeled, a gospel that heals',
+  description = 'Icons reGospeled helps the wounded and the curious rediscover a gospel that heals, through honest theology, psychology, and real community. State College, PA · 501(c)(3) Pennsylvania nonprofit.',
 } = Astro.props;
 ---
 <!doctype html>
@@ -37,7 +37,7 @@ const {
     import gsap from 'gsap';
     import ScrollTrigger from 'gsap/ScrollTrigger';
 
-    // Progressive reveal — content is visible by default; only arm the hide
+    // Progressive reveal, content is visible by default; only arm the hide
     // once JS is confirmed running, then reveal on scroll (with a failsafe).
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const els = [...document.querySelectorAll('[data-reveal]')];
@@ -76,8 +76,8 @@ const {
         if (!sec) return;
         gsap.fromTo(
           el,
-          { rotation: -10, scale: 0.9 },
-          { rotation: 10, scale: 1.1, ease: 'none',
+          { rotation: -25, scale: 0.45 },
+          { rotation: 40, scale: 1.95, ease: 'none',
             scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1 } }
         );
       });
@@ -100,7 +100,7 @@ const {
         gsap.set(steps[0], { opacity: 1, y: 0 });
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: plan, start: 'top top',
+            trigger: plan, start: 'center center',
             end: '+=' + steps.length * 55 + '%',
             pin: true, scrub: 0.6, anticipatePin: 1,
           },
@@ -154,7 +154,7 @@ const {
         f.reset();
         input.disabled = true;
         msg.style.color = '';
-        msg.textContent = "Thank you — you're on the list. Grace = peace.";
+        msg.textContent = "Thank you, you're on the list. Grace = peace.";
       });
     });
   </script>
