@@ -18,13 +18,13 @@ const {
   <meta property="og:title" content="Icons reGospeled" />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="/assets/logo.png" />
+  <link rel="icon" href="/assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Epilogue:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
+  <div class="aurora" aria-hidden="true"><span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span></div>
   <Header />
   <main>
     <slot />
@@ -32,12 +32,12 @@ const {
   <Footer />
 
   <script>
-    // Progressive reveal of sections as they scroll into view.
+    // Progressive reveal — content is visible by default; only arm the hide
+    // once JS is confirmed running, then reveal on scroll (with a failsafe).
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const els = document.querySelectorAll('[data-reveal]');
-    if (reduce || !('IntersectionObserver' in window)) {
-      els.forEach((e) => e.classList.add('in'));
-    } else {
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    if (!reduce && 'IntersectionObserver' in window) {
+      els.forEach((e) => e.classList.add('armed'));
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((en) => {
@@ -50,6 +50,7 @@ const {
         { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
       );
       els.forEach((e) => io.observe(e));
+      setTimeout(() => els.forEach((e) => e.classList.add('in')), 1400);
     }
 
     // Email signup -> Kit (ConvertKit) form 9754678 (same list the Book Finder uses).
