@@ -14,7 +14,7 @@
 
 /* unified section title: the eyebrow's font + gold color, at heading size */
 h1.stitle,h2.stitle,.stitle{font-family:var(--sans);color:var(--gold);font-weight:700;
-  font-size:clamp(30px,5.5vw,50px);line-height:1.14;letter-spacing:0;text-transform:none;
+  font-size:clamp(26px,4.7vw,43px);line-height:1.16;letter-spacing:0;text-transform:none;
   text-wrap:balance;margin:0 0 18px;}
 
 /* ---- ethereal drifting color clouds (site-wide ambient background) ----
