@@ -108,7 +108,6 @@ main,.site-footer{position:relative;z-index:1;}
 .fathers-track span{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.3vw,24px);color:var(--muted);white-space:nowrap;padding:0 4px;}
 .fathers-track span::before{content:"\271B";color:var(--gold-line);margin:0 26px;font-style:normal;font-size:.72em;vertical-align:middle;}
 @keyframes fathers{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.fathers:hover .fathers-track{animation-play-state:paused;}
 @media(prefers-reduced-motion:reduce){.fathers-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;}}
 
 /* ---- before/after gospel slider ----

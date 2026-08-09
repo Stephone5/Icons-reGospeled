@@ -43,6 +43,6 @@
 @media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
 /* mobile: small viewports need bigger blobs + less blur, or the clouds vanish */
 @media(max-width:640px){
-  .aurora{filter:blur(46px) saturate(125%);inset:-25%;}
-  .aurora .c1,.aurora .c2,.aurora .c3{width:96vw;height:96vw;}
+  .aurora{filter:blur(40px) saturate(128%);inset:-15%;}
+  .aurora .c1,.aurora .c2,.aurora .c3{width:72vw;height:72vw;}
 }
