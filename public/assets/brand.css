@@ -12,6 +12,11 @@
   --sans:'Epilogue',system-ui,-apple-system,'Segoe UI',sans-serif;
 }
 
+/* unified section title: the eyebrow's font + gold color, at heading size */
+h1.stitle,h2.stitle,.stitle{font-family:var(--sans);color:var(--gold);font-weight:700;
+  font-size:clamp(30px,5.5vw,50px);line-height:1.14;letter-spacing:0;text-transform:none;
+  text-wrap:balance;margin:0 0 18px;}
+
 /* ---- ethereal drifting color clouds (site-wide ambient background) ----
    Soft, blurred, organic blobs that morph and stretch as they drift, like
    slow-moving organisms. Barely more color than the ground. Behind everything. */
@@ -20,11 +25,11 @@
 .aurora span{position:absolute;display:block;will-change:transform,border-radius;
   border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
 .aurora .c1{width:48vw;height:44vw;left:2vw;top:-2vw;
-  background:radial-gradient(circle,rgba(198,148,48,.40),transparent 68%);animation:drift1 10s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(198,148,48,.40),transparent 55%);animation:drift1 10s ease-in-out infinite;}
 .aurora .c2{width:44vw;height:48vw;right:0;top:8vw;
-  background:radial-gradient(circle,rgba(201,139,122,.34),transparent 68%);animation:drift2 12s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(201,139,122,.34),transparent 55%);animation:drift2 12s ease-in-out infinite;}
 .aurora .c3{width:52vw;height:46vw;left:26vw;bottom:-10vw;
-  background:radial-gradient(circle,rgba(196,110,70,.32),transparent 68%);animation:drift3 14s ease-in-out infinite;}
+  background:radial-gradient(circle,rgba(196,110,70,.32),transparent 55%);animation:drift3 14s ease-in-out infinite;}
 @keyframes drift1{
   0%{transform:translate(0,0) rotate(0deg) scale(1,1);border-radius:42% 58% 63% 37% / 45% 42% 58% 55%;}
   33%{transform:translate(18vw,14vw) rotate(50deg) scale(1.2,.82);border-radius:66% 34% 40% 60% / 55% 62% 38% 45%;}
@@ -43,6 +48,8 @@
 @media(prefers-reduced-motion:reduce){.aurora span{animation:none;}}
 /* mobile: small viewports need bigger blobs + less blur, or the clouds vanish */
 @media(max-width:640px){
-  .aurora{filter:blur(40px) saturate(128%);inset:-15%;}
-  .aurora .c1,.aurora .c2,.aurora .c3{width:72vw;height:72vw;}
+  .aurora{filter:blur(40px) saturate(128%);inset:-8%;}
+  .aurora .c1{width:70vw;height:70vw;left:-14vw;right:auto;top:6vh;bottom:auto;}
+  .aurora .c2{width:70vw;height:70vw;right:-14vw;left:auto;top:44vh;bottom:auto;}
+  .aurora .c3{width:70vw;height:70vw;left:14vw;right:auto;top:78vh;bottom:auto;}
 }
