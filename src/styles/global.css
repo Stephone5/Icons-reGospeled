@@ -315,7 +315,7 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
 /* ---- program blocks (Community), flex ---- */
 .program{display:flex;gap:22px;align-items:flex-start;padding:26px 0;border-top:1px solid var(--line);}
 .program:first-of-type{border-top:none;}
-.program .icon{font-size:30px;line-height:1;flex:0 0 auto;}
+.program .icon{font-size:56px;line-height:1;flex:0 0 auto;}
 .program .body{flex:1 1 auto;min-width:0;}
 .program h3{margin-bottom:6px;}
 .program p{color:var(--muted);margin-bottom:8px;}
