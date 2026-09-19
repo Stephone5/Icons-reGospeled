@@ -54,7 +54,7 @@ import Base from '../layouts/Base.astro';
       <div class="board">
 
         <article class="board-member" id="jeremy-krider">
-          <img class="board-photo" src="/assets/photos/jeremy.jpg" alt="Jeremy Krider" loading="lazy" width="320" height="320">
+          <div class="board-figure"><img class="board-photo" src="/assets/photos/jeremy.jpg" alt="Jeremy Krider" loading="lazy" width="320" height="320"></div>
           <div class="board-text">
             <h3>Jeremy Krider</h3>
             <p class="board-role">Friend, pastor, theologian, guide in human and spiritual formation, lover of music and German</p>
@@ -63,7 +63,7 @@ import Base from '../layouts/Base.astro';
         </article>
 
         <article class="board-member">
-          <img class="board-photo" src="/assets/photos/stephen-thor.jpg" alt="Stephen Thor" loading="lazy" width="320" height="320">
+          <div class="board-figure"><img class="board-photo" src="/assets/photos/stephen-thor.jpg" alt="Stephen Thor" loading="lazy" width="320" height="320"></div>
           <div class="board-text">
             <h3>Stephen Thor</h3>
             <p class="board-role">Coach and mentor in listening prayer, mindfulness, and emotional awareness</p>
@@ -72,7 +72,7 @@ import Base from '../layouts/Base.astro';
         </article>
 
         <article class="board-member" id="stephen-barton">
-          <img class="board-photo" src="/assets/photos/stephen-barton.jpg" alt="Stephen Barton" loading="lazy" width="320" height="320">
+          <div class="board-figure"><img class="board-photo" src="/assets/photos/stephen-barton.jpg" alt="Stephen Barton" loading="lazy" width="320" height="320"></div>
           <div class="board-text">
             <h3>Stephen Barton</h3>
             <p class="board-role">Producer and designer, student of life</p>
@@ -94,5 +94,54 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    (() => {
+      const board = document.querySelector('.board');
+      if (!board) return;
+      const members = [...board.querySelectorAll('.board-member')];
+      const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+      // Staggered scroll reveal (armed pattern: only hide once JS is running).
+      if (!reduce) {
+        board.classList.add('armed');
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            const i = members.indexOf(en.target);
+            en.target.style.transitionDelay = (i * 0.12) + 's';
+            en.target.classList.add('in');
+            obs.unobserve(en.target);
+          });
+        }, { threshold: 0.28 });
+        members.forEach((m) => io.observe(m));
+        // failsafe: never leave a profile hidden
+        setTimeout(() => members.forEach((m) => m.classList.add('in')), 1600);
+        // if arriving via a host link, show that profile immediately
+        const target = location.hash && board.querySelector(location.hash);
+        if (target) { target.style.transitionDelay = '0s'; target.classList.add('in'); }
+      }
+
+      // Subtle pointer tilt on the portraits (desktop, precise pointers only).
+      if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches) {
+        board.querySelectorAll('.board-figure').forEach((fig) => {
+          const img = fig.querySelector('.board-photo');
+          fig.addEventListener('pointermove', (e) => {
+            const r = fig.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            fig.classList.add('lift');
+            img.style.setProperty('--ry', (px * 12).toFixed(2) + 'deg');
+            img.style.setProperty('--rx', (-py * 12).toFixed(2) + 'deg');
+          });
+          fig.addEventListener('pointerleave', () => {
+            fig.classList.remove('lift');
+            img.style.setProperty('--ry', '0deg');
+            img.style.setProperty('--rx', '0deg');
+          });
+        });
+      }
+    })();
+  </script>
 
 </Base>
