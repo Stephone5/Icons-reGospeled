@@ -1,29 +1,72 @@
 ---
 import Base from '../layouts/Base.astro';
+
+// Pull live products from the Printful storefront at build time.
+// The store is an Inertia app: all product data is embedded in the page's
+// data-page attribute. We parse it so the site mirrors Printful automatically
+// (the daily cron rebuild keeps images, prices, and items in sync).
+const STORE = 'https://iconsrg.printful.me';
+let products = [];
+try {
+  const res = await fetch(STORE, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+  if (res.ok) {
+    const html = await res.text();
+    const m = html.match(/data-page="([^"]*)"/s);
+    if (m) {
+      const json = m[1]
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+      const data = JSON.parse(json);
+      products = (data?.props?.products || []).map((p) => ({
+        name: p.name,
+        price: p.min_price,
+        img: p.imageUrl,
+        url: `${STORE}/product/${p.slug}`,
+      }));
+    }
+  }
+} catch (e) {}
+const money = (n) => (n == null ? '' : `$${Number(n).toFixed(2)}`);
 ---
-<Base title="Shop, Icons reGospeled" description="Tees, dad hats, and whiskey glasses from Icons reGospeled, 'IrG Edition', 'Apokatastasis', and 'Live, Laugh, Apokatastasis'. Proceeds support the ministry.">
+<Base title="Shop, Icons reGospeled" description="Tees, dad hats, whiskey glasses, and more from Icons reGospeled. Every order supports the ministry.">
 
   <section class="hero" style="padding-bottom:0;">
     <div class="wrap">
-      <p class="eyebrow">The shop</p>
-      <h1>Wear the good news.</h1>
-      <p class="lead">Tees, dad hats, and whiskey glasses, including "IrG Edition," "Apokatastasis," and "Live, Laugh, Apokatastasis." Every order helps support the ministry.</p>
-      <div class="cta-row center" style="margin-top:26px;">
-        <a class="btn btn-gold" href="https://iconsrg.printful.me">Browse the shop →</a>
-      </div>
+      <h1 class="stitle">Wear the good news</h1>
+      <p class="lead">Tees, dad hats, beanies, and whiskey glasses, including "IrG Edition," "Apokatastasis," and "Live, Laugh, Apokatastasis." Every order helps support the ministry.</p>
     </div>
   </section>
 
   <section data-reveal>
     <div class="wrap">
-      <div class="grid cols-3" style="max-width:900px;margin:0 auto;">
-        <a class="card" href="https://iconsrg.printful.me"><div class="tag">Apparel</div><h3>Tees</h3><p>Soft, honest, and quietly heretical. From about $23.50.</p><span class="go">Shop tees →</span></a>
-        <a class="card" href="https://iconsrg.printful.me"><div class="tag">Headwear</div><h3>Dad hats</h3><p>Low-profile caps for high theology. From about $18.</p><span class="go">Shop hats →</span></a>
-        <a class="card" href="https://iconsrg.printful.me"><div class="tag">Barware</div><h3>Whiskey glasses</h3><p>For Wings, Whiskey &amp; the Word and beyond. From about $13.50.</p><span class="go">Shop glasses →</span></a>
-      </div>
-      <p style="text-align:center;color:var(--muted);font-size:15px;margin-top:28px;">
-        Fulfilled by Printful. Prices and availability shown at checkout.
-      </p>
+      {products.length ? (
+        <div class="shop-grid">
+          {products.map((p) => (
+            <a class="product" href={p.url}>
+              <div class="product-img">
+                <img src={p.img} alt={p.name} loading="lazy" decoding="async" width="600" height="600">
+              </div>
+              <div class="product-meta">
+                <h3>{p.name}</h3>
+                <span class="price">{p.price ? `From ${money(p.price)}` : 'View'}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p style="text-align:center;color:var(--muted);font-size:15px;margin-top:32px;">
+          Fulfilled by Printful. Final prices and options shown at checkout.
+        </p>
+      ) : (
+        <div class="narrow" style="text-align:center;">
+          <p class="lead">Our full store is over on Printful.</p>
+          <div class="cta-row center" style="margin-top:20px;">
+            <a class="btn btn-gold" href={STORE}>Browse the shop →</a>
+          </div>
+        </div>
+      )}
     </div>
   </section>
 

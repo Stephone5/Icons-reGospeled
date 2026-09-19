@@ -194,6 +194,18 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
 .card .go{margin-top:auto;color:var(--gold);font-weight:700;font-size:14.5px;}
 .card .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;}
 
+/* ---- shop: live Printful product grid ---- */
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
+.product{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow);transition:transform .14s ease,border-color .18s ease;
+  text-decoration:none;color:var(--ink);display:flex;flex-direction:column;}
+.product:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
+.product-img{aspect-ratio:1/1;background:var(--white);overflow:hidden;}
+.product-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.product-meta{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;}
+.product-meta h3{font-size:16.5px;line-height:1.25;margin:0;}
+.product-meta .price{color:var(--gold);font-weight:700;font-size:14.5px;}
+
 /* ---- feature list, box-free alternative to cards (home "guide" section) ---- */
 .features{list-style:none;margin:0;padding:0;}
 .features li{padding:20px 0;border-top:1px solid var(--line);}
