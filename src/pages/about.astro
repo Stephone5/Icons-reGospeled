@@ -131,8 +131,8 @@ import Base from '../layouts/Base.astro';
             const px = (e.clientX - r.left) / r.width - 0.5;
             const py = (e.clientY - r.top) / r.height - 0.5;
             fig.classList.add('lift');
-            img.style.setProperty('--ry', (px * 12).toFixed(2) + 'deg');
-            img.style.setProperty('--rx', (-py * 12).toFixed(2) + 'deg');
+            img.style.setProperty('--ry', (px * 18).toFixed(2) + 'deg');
+            img.style.setProperty('--rx', (-py * 18).toFixed(2) + 'deg');
           });
           fig.addEventListener('pointerleave', () => {
             fig.classList.remove('lift');

@@ -180,14 +180,30 @@ a.host:hover b{color:var(--gold);}
 .board.armed .board-member.in{opacity:1;transform:none;}
 @media(prefers-reduced-motion:reduce){.board.armed .board-member{opacity:1;transform:none;transition:none;}}
 
-.board-figure{flex:0 0 196px;width:196px;height:196px;perspective:760px;}
+.board-figure{flex:0 0 196px;width:196px;height:196px;perspective:600px;}
 .board-photo{width:100%;height:100%;border-radius:24px;object-fit:cover;box-shadow:var(--shadow);
   filter:grayscale(.42) sepia(.14) contrast(1.02);
   transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));
   transition:filter .55s ease,box-shadow .4s ease,transform .35s cubic-bezier(.2,.7,.2,1);
   will-change:transform;}
 .board-member:hover .board-photo,.board-figure.lift .board-photo{
-  filter:none;box-shadow:var(--shadow-lg),0 0 0 4px rgba(220,165,55,.32);--s:1.045;}
+  filter:none;box-shadow:var(--shadow-lg),0 0 0 4px rgba(220,165,55,.32);--s:1.06;}
+
+/* touch devices have no pointer: the portraits drift on their own, in color */
+@keyframes portraitDrift{
+  0%{transform:rotateX(7deg) rotateY(-15deg) scale(1.03);}
+  25%{transform:rotateX(-6deg) rotateY(-5deg) scale(1.03);}
+  50%{transform:rotateX(7deg) rotateY(15deg) scale(1.03);}
+  75%{transform:rotateX(-5deg) rotateY(4deg) scale(1.03);}
+  100%{transform:rotateX(7deg) rotateY(-15deg) scale(1.03);}}
+@media(hover:none){
+  .board-figure{perspective:460px;}
+  .board-photo{filter:none;box-shadow:var(--shadow-lg);
+    animation:portraitDrift 8s ease-in-out infinite;}
+  .board-member:nth-child(2) .board-photo{animation-delay:-2.7s;}
+  .board-member:nth-child(3) .board-photo{animation-delay:-5.3s;}
+}
+@media(hover:none) and (prefers-reduced-motion:reduce){.board-photo{animation:none;}}
 
 .board-text{flex:1 1 auto;}
 .board-text h3{margin:0 0 6px;font-family:var(--serif);font-size:25px;}
