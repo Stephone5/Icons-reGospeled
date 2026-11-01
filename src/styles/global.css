@@ -11,6 +11,7 @@
 
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;background:var(--ground);}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
 body{
   margin:0;background:transparent;color:var(--ink);
   font-family:var(--sans);line-height:1.65;font-size:17px;
@@ -272,15 +273,6 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
 .features h3{margin:0 0 4px;}
 .features p{color:var(--muted);font-size:15.5px;margin:0;}
 
-/* ---- numbered path, box-free steps (home "four steps" section) ---- */
-.path{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:30px 34px;}
-.path li{flex:1 1 200px;display:flex;gap:16px;align-items:flex-start;text-align:left;}
-.path .n{font-family:var(--serif);font-size:42px;line-height:.9;color:var(--gold-line);flex:0 0 auto;}
-.path .pi{display:flex;flex-direction:column;align-items:center;gap:7px;flex:0 0 auto;}
-.path .pico{width:36px;height:36px;color:var(--gold-line);}
-.path .pn{font-family:var(--serif);font-size:19px;line-height:1;color:var(--gold-line);}
-.path h3{font-size:19px;margin:2px 0 6px;}
-.path p{color:var(--muted);font-size:15px;margin:0;}
 
 /* ---- numbered plan (flexbox) ---- */
 .steps{display:flex;flex-wrap:wrap;gap:20px;}
@@ -367,3 +359,26 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
   .brand-logo{height:34px;}
   .footer-bottom{justify-content:flex-start;}
 }
+
+/* ---- home: hero icon button, Ways to begin, gatherings, back-to-top ---- */
+.btn:focus-visible,.card:focus-visible,.to-top:focus-visible{outline:0.1875rem solid var(--gold-fill);outline-offset:0.1875rem;}
+.btn-icon{display:inline-flex;align-items:center;gap:0.5em;}
+.btn-arrow{width:1.05em;height:1.05em;flex:0 0 auto;}
+.begin-grid{margin-top:clamp(1.5rem,4vw,2.25rem);}
+.begin-grid > *{flex-basis:clamp(14rem,30%,19rem);}
+.begin-promise{text-align:center;max-width:60ch;margin:clamp(1.5rem,4vw,2rem) auto 0;}
+#gatherings{scroll-margin-top:calc(var(--header-h) + 1rem);}
+.gatherings .features{margin:clamp(1rem,3vw,1.5rem) 0 clamp(1.25rem,3vw,1.75rem);}
+.gatherings .features li{padding:clamp(0.75rem,2vw,1rem) 0;}
+.gatherings .features li:first-child{padding-top:0;}
+.gatherings .features h3{font-size:clamp(1.1rem,2vw,1.25rem);}
+.to-top{position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:60;
+  width:clamp(2.75rem,6vw,3.25rem);height:clamp(2.75rem,6vw,3.25rem);
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:var(--gold-fill);color:var(--on-gold);box-shadow:var(--shadow);
+  opacity:0;visibility:hidden;transform:translateY(0.75rem);
+  transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;}
+.to-top.show{opacity:1;visibility:visible;transform:none;transition:opacity .25s ease,transform .25s ease,visibility 0s;}
+.to-top:hover{box-shadow:var(--shadow-lg);}
+.to-top svg{width:45%;height:45%;}
+@media(prefers-reduced-motion:reduce){.to-top,.to-top.show{transition:none;transform:none;}}
