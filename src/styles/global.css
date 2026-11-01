@@ -382,3 +382,5 @@ a.card:hover{transform:translateY(-3px);border-color:var(--gold-fill);}
 .to-top:hover{box-shadow:var(--shadow-lg);}
 .to-top svg{width:45%;height:45%;}
 @media(prefers-reduced-motion:reduce){.to-top,.to-top.show{transition:none;transform:none;}}
+.whole-person .features{margin-top:clamp(1rem,3vw,1.5rem);}
+.whole-person .features h3{font-size:clamp(1.1rem,2vw,1.25rem);}
