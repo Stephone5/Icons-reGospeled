@@ -3,23 +3,33 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="Icons reGospeled, a gospel that heals">
 
-  <section class="hero">
-    <div class="wrap">
-      <h1 class="stitle" id="top-heading" tabindex="-1">Honest theology, psychology, and community for worn down people.</h1>
-      <p class="lead">You are a living icon, made in God's image, beloved and being made whole in Christ. Rediscover a gospel that heals, find your people, and begin with the book that meets you where you are.</p>
-      <div class="cta-row center">
-        <a class="btn btn-gold" href="/reading-finder/">Find your book →</a>
-        <a class="btn btn-ghost btn-icon" href="#gatherings">Get connected today<svg class="btn-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg></a>
+  <section class="hero hero-split">
+    <div class="wrap hero-grid">
+      <div class="hero-copy" data-enter>
+        <h1 class="stitle" id="top-heading" tabindex="-1">Honest theology, psychology, and community for worn down people.</h1>
+        <p class="lead">You are a living icon, made in God's image, beloved and being made whole in Christ. Rediscover a gospel that heals, find your people, and begin with the book that meets you where you are.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="/reading-finder/">Find your book →</a>
+          <a class="btn btn-ghost btn-icon" href="#gatherings">Get connected today<svg class="btn-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg></a>
+        </div>
+      </div>
+      <div class="hero-media" data-enter style="--enter-delay:.15s">
+        <div class="frame hm-main"><img src="/assets/photos/gathering-1.jpg" alt="Friends gathered in a warm living room for Wings, Whiskey and the Word" width="1536" height="1024" fetchpriority="high"></div>
+        <div class="frame hm-side"><img src="/assets/photos/gathering-3.jpg" alt="A friend playing guitar by the window at a retreat" width="852" height="1846"></div>
       </div>
     </div>
   </section>
 
   <section class="section-alt" data-reveal>
-    <div class="narrow" style="text-align:center;">
-      <h2 class="stitle">If this is you</h2>
-      <div class="rule"></div>
+    <div class="wrap intro-split">
+      <div class="intro-head">
+        <h2 class="stitle">If this is you</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="intro-body">
       <p>You went looking for something both theologically serious <em>and</em> non-shaming, and couldn't find it. Underneath is the exhaustion, the disillusionment, and the quiet fear that maybe the problem is you.</p>
       <p>It isn't. Fear-based, shame-based religion has always struggled to tell the truth about a God who is, first and last, love. The gospel was supposed to be good news, a Physician, not a scorekeeper.</p>
+      </div>
     </div>
   </section>
 
@@ -98,7 +108,7 @@ import Base from '../layouts/Base.astro';
       <h2 class="stitle" style="text-align:center;">Ways to begin</h2>
       <div class="rule center"></div>
       <div class="grid begin-grid">
-        <a class="card" href="/reading-finder/"><div class="tag">Free · start here</div><h3>The Book Finder</h3><p>Three questions, two books chosen for where you are, and a curated library of 60+ more.</p><span class="go">Find your book →</span></a>
+        <a class="card card-feature" href="/reading-finder/"><div class="tag">Free · start here</div><h3>The Book Finder</h3><p>Three questions, two books chosen for where you are, and a curated library of 60+ more.</p><span class="go">Find your book →</span></a>
         <a class="card" href="/podcast/"><div class="tag">Podcast</div><h3>Less Heresy Than Expected</h3><p>Warm, witty, theologically serious conversation for believers, doubters, and the disillusioned.</p><span class="go">Listen →</span></a>
         <a class="card" href="#gatherings"><div class="tag">Gatherings</div><h3>Come to the table</h3><p>Wings, Whiskey &amp; the Word, Movies for Humans, retreats, and a monthly reading group.</p><span class="go">See gatherings ↓</span></a>
         <a class="card" href="/course/"><div class="tag">Course · $20</div><h3>The Gospel You Were Never Told</h3><p>What if the Good News is actually better than you were told? Five sessions to find out.</p><span class="go">Take the course →</span></a>
@@ -136,7 +146,7 @@ import Base from '../layouts/Base.astro';
           <a class="btn btn-gold" href="/community/">See all gatherings →</a>
         </div>
       </div>
-      <img class="photo-hero" src="/assets/photos/gathering-1.jpg" alt="Friends gathered around the table for Wings, Whiskey and the Word" loading="lazy" width="1600" height="1067">
+      <div class="frame photo-frame"><img class="photo-hero" src="/assets/photos/gathering-4.jpg" alt="The crew gathered outdoors at an Icons reGospeled retreat" loading="lazy" width="1600" height="1200"></div>
     </div>
   </section>
 
